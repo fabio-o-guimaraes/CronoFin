@@ -135,7 +135,7 @@ O dashboard foi concebido com uma estrutura semelhante à utilizada em aplicaç�
 
 ---
 
-## 🎨 Conteúdo & Identidade visual
+## 🎨 Identidade visual
 ---
 ### Logotipo
 Foram desenvolvidas duas versões, para fundos claros e escuros <br>
@@ -162,14 +162,232 @@ Estas definições permitem manter uma identidade visual consistente em todas as
 
 ---
 
-## Base de dados & arquitectura
+## 📝 Conteúdo das páginas
+---
+### Homepage
 
-### Desenho da base de dados
-![Modelo ER da base de dados](docs/design/sitemap_&_er_database/ER_data_base.jpg.png) 
+A homepage foi estruturada para apresentar o CronoFin, comunicar os seus principais benefícios e incentivar o utilizador a criar uma conta.
 
-![Diagrama da base de dados](docs/design/sitemap_&_er_database/diagrama_base_dados.png)
+- Header com logotipo e acesso às áreas de autenticação;
+- Hero section com proposta de valor e CTA principal;
+- Secção de benefícios, focada em controlo, organização e progresso;
+- Secção "Começar agora", orientada para conversão;
+- Footer com navegação e informação institucional.
+
+### Registo
+
+Página destinada à criação de uma nova conta de utilizador.
+
+- Formulário de registo;
+- Criação de conta;
+- Acesso posterior à área privada através do login.
+
+### Login
+
+Página destinada à autenticação dos utilizadores.
+
+- Formulário de autenticação;
+- Validação das credenciais;
+- Acesso à área privada após autenticação.
+
+### Dashboard
+
+O dashboard constitui a área principal da aplicação após o login e foi pensado para permitir ao utilizador consultar e gerir as suas finanças de forma rápida e simples.
+
+**Resumo**
+- Indicadores financeiros principais;
+- Gráfico de receitas vs. despesas;
+- Informação sobre poupança e objetivos.
+
+**Movimentos**
+- Consulta, pesquisa e filtragem de receitas e despesas;
+- Registo de novos movimentos.
+
+**Objetivos**
+- Visualização do progresso através de cards;
+- Criação e gestão de objetivos;
+- Registo de contribuições;
+- Conclusão ou eliminação de objetivos.
+
+**Categorias**
+- Gestão das categorias utilizadas nos movimentos;
+- Criação, edição e eliminação/desativação de categorias.
+
+**Perfil**
+- Consulta e gestão dos dados pessoais;
+- Alteração da password.
 
 ---
 
+## 🗄️Base de dados & arquitectura
+---
+### Desenho da base de dados
+![Modelo ER da base de dados](docs/design/sitemap_&_er_database/ER_data_base.jpg)
 
+### Diagrama da base de dados
+![Diagrama da base de dados](docs/design/sitemap_&_er_database/diagrama_base_dados.png)
 
+### Estrutura da base de dados
+
+A aplicação utiliza uma base de dados MySQL composta pelas tabelas `users`, `categories`, `movements`, `goals` e `contributions`.
+
+- **users:** regista os utilizadores e os respetivos dados de autenticação.
+- **categories:** armazena as categorias predefinidas do sistema e as categorias criadas pelos utilizadores.
+- **movements:** regista as receitas e despesas dos utilizadores, associando cada movimento a uma categoria.
+- **goals:** regista os objetivos financeiros definidos pelos utilizadores.
+- **contributions:** regista os valores reservados para cada objetivo, mantendo o histórico das contribuições.
+
+### Relações principais
+
+- Um utilizador pode ter vários movimentos (`1:N`).
+- Um utilizador pode ter várias categorias (`1:N`).
+- Uma categoria pode estar associada a vários movimentos (`1:N`).
+- Um utilizador pode ter vários objetivos (`1:N`).
+- Um objetivo pode ter várias contribuições (`1:N`).
+
+### Categorias
+
+As categorias podem ser predefinidas pelo sistema ou criadas pelo utilizador.
+
+As categorias predefinidas não estão associadas a um utilizador específico, enquanto as categorias criadas pelo utilizador ficam associadas ao respetivo utilizador.
+
+### Objetivos e contribuições
+
+Os objetivos permitem ao utilizador definir uma meta financeira e acompanhar o valor reservado através de contribuições.
+
+As contribuições pertencem a um objetivo e mantêm o seu próprio histórico. Não representam diretamente uma receita ou despesa.
+
+---
+
+## ⚙️ Regras de negócio
+---
+### Categorias
+
+As categorias podem ser predefinidas pelo sistema ou criadas pelo utilizador.
+
+- Categorias predefinidas pelo sistema não podem ser eliminadas pelo utilizador.
+- Categorias próprias sem movimentos associados podem ser eliminadas.
+- Categorias próprias com movimentos associados não são eliminadas, podem apenas ser desativadas.
+- Categorias inativas não ficam disponíveis para novos movimentos.
+- Categorias inativas podem ser reativadas.
+
+### Movimentos
+
+- Os movimentos representam o dinheiro efetivamente recebido ou gasto pelo utilizador.
+- Cada movimento corresponde a uma receita (`income`) ou despesa (`expense`).
+- Cada movimento está associado a uma categoria.
+
+### Objetivos e contribuições
+
+- `goals` representam os objetivos financeiros definidos pelo utilizador.
+- Um objetivo pode ter várias `contributions`.
+- `contributions` representam dinheiro reservado para um objetivo e mantêm um histórico próprio.
+- As contribuições não criam movimentos financeiros.
+
+### Gestão dos objetivos
+
+Enquanto um objetivo estiver ativo:
+
+- O utilizador pode alterar a meta.
+- A meta não pode ser reduzida para um valor inferior ao valor atualmente reservado.
+- O utilizador pode adicionar ou remover poupança através de novos registos em `contributions`.
+
+### Aquisição de um objetivo
+
+Ao definir um objetivo como adquirido:
+
+- É apresentado um formulário para registar a despesa associada.
+- O utilizador indica o valor realmente gasto.
+- O utilizador pode selecionar uma categoria existente ou criar uma nova.
+- A descrição do movimento assume, por defeito, o nome do objetivo.
+- O sistema cria um movimento do tipo `expense`.
+- Qualquer diferença entre o valor reservado e o valor efetivamente gasto regressa ao saldo disponível.
+- O objetivo passa para o estado `acquired`.
+
+### Eliminação de um objetivo
+
+- Ao eliminar um objetivo, o valor atualmente reservado regressa ao saldo disponível.
+- O objetivo passa para o estado `deleted`.
+
+---
+
+## 🛠️ Tecnologias e responsabilidades
+---
+As tecnologias foram escolhidas de acordo com a função que desempenham na aplicação, procurando separar a estrutura, apresentação, interatividade, lógica e armazenamento de dados.
+
+| Tecnologia | Responsabilidade |
+|---|---|
+| **HTML** | Estrutura e semântica das páginas |
+| **CSS** | Identidade visual, estilos próprios e personalizações |
+| **Bootstrap** | Grid, responsividade, componentes e utilitários |
+| **JavaScript** | Interatividade no browser, validações e atualizações dinâmicas |
+| **PHP** | Lógica da aplicação, autenticação, sessões, operações CRUD e comunicação com a base de dados |
+| **MySQL** | Armazenamento e relacionamento dos dados |
+| **Font Awesome** | Iconografia |
+
+### Organização da interface
+
+A interface será desenvolvida combinando Bootstrap com CSS próprio.
+
+O Bootstrap será utilizado principalmente para:
+
+- Estrutura de layout;
+- Grid;
+- Responsividade;
+- Cards;
+- Tabelas;
+- Formulários;
+- Botões;
+- Componentes de navegação.
+
+O CSS próprio será utilizado para:
+
+- Cores e identidade visual;
+- Tipografia;
+- Espaçamentos específicos;
+- Componentes e ajustes personalizados.
+
+### Interatividade
+
+O JavaScript será utilizado quando existir necessidade de interação no lado do cliente, como:
+
+- Validação imediata de formulários;
+- Filtros;
+- Confirmações de ações;
+- Atualização dinâmica de informação;
+- Gráficos;
+- Pequenas interações da interface.
+
+### Lógica da aplicação
+
+O PHP será responsável pela lógica da aplicação, incluindo:
+
+- Autenticação e sessões;
+- Validação dos dados;
+- Operações CRUD;
+- Comunicação com a base de dados;
+- Processamento dos dados antes da apresentação.
+
+---
+
+## 🔒 Segurança
+---
+A segurança será considerada desde o início do desenvolvimento, principalmente nas áreas de autenticação, validação dos dados e proteção das informações dos utilizadores.
+
+### Validação e proteção de dados
+
+- Validar os dados recebidos pelo servidor;
+- Utilizar prepared statements nas consultas à base de dados para evitar SQL Injection;
+- Proteger os dados apresentados na página contra XSS.
+
+### Autenticação
+
+- Utilizar sessões para controlar o acesso à área privada;
+- Garantir que apenas utilizadores autenticados conseguem aceder aos seus dados;
+- As passwords não serão armazenadas em texto simples.
+
+### Acesso aos dados
+
+Cada utilizador deverá apenas conseguir consultar e alterar os seus próprios movimentos, categorias, objetivos e contribuições.
+
+---
