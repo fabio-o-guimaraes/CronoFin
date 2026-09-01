@@ -1,8 +1,11 @@
 # 📋 Guia de desenvolvimento - Projeto CronoFin
+
 ---
 
 ## 🌐 Visão Geral
+
 ---
+
 - **Tema:** Gestor de finanças pessoais
 - **Nome:** CronoFin
 - **Finalidade:** Projeto de desenvolvimento pessoal
@@ -12,7 +15,9 @@
 ---
 
 ## 🎯 Briefing
+
 ---
+
 - **Objetivo do website:** Desenvolver uma aplicação web que permita ao utilizador gerir as suas finanças pessoais, acompanhando o dinheiro que entra e sai através de uma interface simples, intuitiva e orientada para a criação de hábitos financeiros saudáveis.
 
 - **Público-alvo:** Adultos entre os 20 e os 45 anos que pretendem organizar as suas finanças pessoais de forma simples, sem recorrer a aplicações financeiras complexas ou folhas de cálculo.
@@ -45,10 +50,10 @@
 
 ### Sites de referência
 
-| Aplicação | Pontos fortes | Pontos fracos |
-|---|---|---|
-| **YNAB** | - Interface limpa, todos os elementos "respiram";<br>- Exibe a informação mais relevante imediatamente (quanto tenho, quanto posso gastar, quanto já gastei);<br>- Formulários rápidos, com poucos cliques se chega ao resultado. | - Curva de aprendizagem;<br>- Parece uma ferramenta de trabalho, fica muito séria e não transmite sensação de leveza;<br>- Muitas opções e demasiada informação, tornando a utilização menos simples e direta. |
-| **Firefly III** | - Excelente estrutura/arquitetura. | - Demasiadas opções, sobretudo para novos utilizadores;<br>- Interface pesada, com muitos textos, tabelas e menus, tendo pouco espaço livre. |
+| Aplicação       | Pontos fortes                                                                                                                                                                                                                     | Pontos fracos                                                                                                                                                                                                  |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **YNAB**        | - Interface limpa, todos os elementos "respiram";<br>- Exibe a informação mais relevante imediatamente (quanto tenho, quanto posso gastar, quanto já gastei);<br>- Formulários rápidos, com poucos cliques se chega ao resultado. | - Curva de aprendizagem;<br>- Parece uma ferramenta de trabalho, fica muito séria e não transmite sensação de leveza;<br>- Muitas opções e demasiada informação, tornando a utilização menos simples e direta. |
+| **Firefly III** | - Excelente estrutura/arquitetura.                                                                                                                                                                                                | - Demasiadas opções, sobretudo para novos utilizadores;<br>- Interface pesada, com muitos textos, tabelas e menus, tendo pouco espaço livre.                                                                   |
 
 ### Conclusão da análise
 
@@ -61,7 +66,9 @@ O projeto procurará combinar a simplicidade visual e a boa experiência de util
 ---
 
 ## 🗺️ Mapa do site
+
 ---
+
 ![Mapa do site do CronoFin](docs/design/sitemap_&_er_database/Site_Map.jpg)
 
 ### Área pública
@@ -84,16 +91,19 @@ Objetivo: convencer o utilizador a experimentar a aplicação, comunicando de fo
 Restrita a utilizadores com sessão iniciada.
 
 **Dashboard**
+
 - Resumo com saldo atual, receitas, despesas e poupança;
 - Gráfico simples de receitas vs. despesas;
 - Últimos movimentos.
 
 **Movimentos**
+
 - Pesquisa;
 - Tabela com data, categoria, descrição, valor e tipo;
 - Adicionar movimento através de formulário.
 
 **Categorias**
+
 - Listar;
 - Adicionar;
 - Editar;
@@ -101,6 +111,7 @@ Restrita a utilizadores com sessão iniciada.
 - Categorias iniciais: alimentação, transporte, casa, lazer e saúde.
 
 **Objetivos**
+
 - Criar novo objetivo;
 - Definir nome e valor;
 - Adicionar descrição opcional;
@@ -108,6 +119,7 @@ Restrita a utilizadores com sessão iniciada.
 - Adicionar valores poupados ao objetivo.
 
 **Perfil**
+
 - Dados pessoais;
 - Alteração de password;
 - Preferências;
@@ -118,12 +130,16 @@ Restrita a utilizadores com sessão iniciada.
 ---
 
 ## ✏️ Design/Wireframes
+
 ---
+
 ### Versão Mobile
+
 ![Wireframe da homepage - versão mobile](docs/design/wireframes/Wireframe_home_page_mobile.jpg)<br>
 ![Wireframe do dashboard - versão mobile](docs/design/wireframes/Dashboard_mobile_version.jpg)
 
 ### Versão Desktop
+
 ![Wireframe do dashboard - versão desktop](docs/design/wireframes/Wireframe_home_page_desktop.jpg)
 ![Wireframe da homepage - versão desktop](docs/design/wireframes/Dashboard_desktop_version.jpg)
 
@@ -136,8 +152,11 @@ O dashboard foi concebido com uma estrutura semelhante à utilizada em aplicaç�
 ---
 
 ## 🎨 Identidade visual
+
 ---
+
 ### Logotipo
+
 Foram desenvolvidas duas versões, para fundos claros e escuros <br>
 ![Logotipo - claro](docs/design/logos/Icon_v2.svg)
 ![Logotipo - escuro](docs/design/logos/Icon_v1.svg) <br>
@@ -145,7 +164,9 @@ Foram desenvolvidas duas versões, para fundos claros e escuros <br>
 ![Logotipo - texto escuro](docs/design/logos/CronoFin_v2.svg)
 
 ### Moodboard
+
 Quero transmitir:
+
 - [x] Simplicidade – Conseguir entender e utilizar sem ter que aprender a aplicação
 - [x] Controlo/organização – Saber para onde está a ir o meu dinheiro
 - [x] Progresso/Crescimento – Definir planos de ação que permitam juntar para determinados objetivos
@@ -163,7 +184,9 @@ Estas definições permitem manter uma identidade visual consistente em todas as
 ---
 
 ## 📝 Conteúdo das páginas
+
 ---
+
 ### Homepage
 
 A homepage foi estruturada para apresentar o CronoFin, comunicar os seus principais benefícios e incentivar o utilizador a criar uma conta.
@@ -195,36 +218,45 @@ Página destinada à autenticação dos utilizadores.
 O dashboard constitui a área principal da aplicação após o login e foi pensado para permitir ao utilizador consultar e gerir as suas finanças de forma rápida e simples.
 
 **Resumo**
+
 - Indicadores financeiros principais;
 - Gráfico de receitas vs. despesas;
 - Informação sobre poupança e objetivos.
 
 **Movimentos**
+
 - Consulta, pesquisa e filtragem de receitas e despesas;
 - Registo de novos movimentos.
 
 **Objetivos**
+
 - Visualização do progresso através de cards;
 - Criação e gestão de objetivos;
 - Registo de contribuições;
 - Conclusão ou eliminação de objetivos.
 
 **Categorias**
+
 - Gestão das categorias utilizadas nos movimentos;
 - Criação, edição e eliminação/desativação de categorias.
 
 **Perfil**
+
 - Consulta e gestão dos dados pessoais;
 - Alteração da password.
 
 ---
 
 ## 🗄️Base de dados & arquitectura
+
 ---
+
 ### Desenho da base de dados
+
 ![Modelo ER da base de dados](docs/design/sitemap_&_er_database/ER_data_base.jpg)
 
 ### Diagrama da base de dados
+
 ![Diagrama da base de dados](docs/design/sitemap_&_er_database/diagrama_base_dados.png)
 
 ### Estrutura da base de dados
@@ -236,6 +268,55 @@ A aplicação utiliza uma base de dados MySQL composta pelas tabelas `users`, `c
 - **movements:** regista as receitas e despesas dos utilizadores, associando cada movimento a uma categoria.
 - **goals:** regista os objetivos financeiros definidos pelos utilizadores.
 - **contributions:** regista os valores reservados para cada objetivo, mantendo o histórico das contribuições.
+
+### Tabelas
+
+**Tabela users**
+
+- id_users INT AUTO_INCREMENT PRIMARY KEY,
+- name VARCHAR(100) NOT NULL,
+- email VARCHAR(150) NOT NULL UNIQUE,
+- password VARCHAR(255) NOT NULL,
+- image VARCHAR(255),
+- created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+**Tabela categories**
+
+- id_categories INT AUTO_INCREMENT PRIMARY KEY,
+- name VARCHAR(100) NOT NULL,
+- icon VARCHAR(100),
+- status ENUM('active', 'inactive') NOT NULL DEFAULT 'active',
+- user_id INT,
+- FOREIGN KEY (user_id) REFERENCES users(id_users)
+
+**Tabela movements**
+
+- id_movements INT AUTO_INCREMENT PRIMARY KEY,
+- date DATE NOT NULL,
+- value DECIMAL(10,2) NOT NULL,
+- description VARCHAR(100),
+- type ENUM('income', 'expense') NOT NULL,
+- user_id INT NOT NULL,
+- category_id INT NOT NULL,
+- FOREIGN KEY (user_id) REFERENCES users(id_users),
+- FOREIGN KEY (category_id) REFERENCES categories(id_categories)
+
+**Tabela goals**
+
+- id_goals INT AUTO_INCREMENT PRIMARY KEY,
+- name VARCHAR(100) NOT NULL,
+- target DECIMAL(10,2) NOT NULL,
+- status ENUM('active', 'acquired', 'deleted') NOT NULL DEFAULT 'active',
+- user_id INT NOT NULL,
+- FOREIGN KEY (user_id) REFERENCES users(id_users)
+
+**Tabela contributions**
+
+- id_contributions INT AUTO_INCREMENT PRIMARY KEY,
+- value DECIMAL(10,2) NOT NULL,
+- date DATE NOT NULL,
+- goal_id INT NOT NULL,
+- FOREIGN KEY (goal_id) REFERENCES goals(id_goals)
 
 ### Relações principais
 
@@ -260,7 +341,9 @@ As contribuições pertencem a um objetivo e mantêm o seu próprio histórico. 
 ---
 
 ## ⚙️ Regras de negócio
+
 ---
+
 ### Categorias
 
 As categorias podem ser predefinidas pelo sistema ou criadas pelo utilizador.
@@ -312,18 +395,20 @@ Ao definir um objetivo como adquirido:
 ---
 
 ## 🛠️ Tecnologias e responsabilidades
+
 ---
+
 As tecnologias foram escolhidas de acordo com a função que desempenham na aplicação, procurando separar a estrutura, apresentação, interatividade, lógica e armazenamento de dados.
 
-| Tecnologia | Responsabilidade |
-|---|---|
-| **HTML** | Estrutura e semântica das páginas |
-| **CSS** | Identidade visual, estilos próprios e personalizações |
-| **Bootstrap** | Grid, responsividade, componentes e utilitários |
-| **JavaScript** | Interatividade no browser, validações e atualizações dinâmicas |
-| **PHP** | Lógica da aplicação, autenticação, sessões, operações CRUD e comunicação com a base de dados |
-| **MySQL** | Armazenamento e relacionamento dos dados |
-| **Font Awesome** | Iconografia |
+| Tecnologia       | Responsabilidade                                                                             |
+| ---------------- | -------------------------------------------------------------------------------------------- |
+| **HTML**         | Estrutura e semântica das páginas                                                            |
+| **CSS**          | Identidade visual, estilos próprios e personalizações                                        |
+| **Bootstrap**    | Grid, responsividade, componentes e utilitários                                              |
+| **JavaScript**   | Interatividade no browser, validações e atualizações dinâmicas                               |
+| **PHP**          | Lógica da aplicação, autenticação, sessões, operações CRUD e comunicação com a base de dados |
+| **MySQL**        | Armazenamento e relacionamento dos dados                                                     |
+| **Font Awesome** | Iconografia                                                                                  |
 
 ### Organização da interface
 
@@ -371,7 +456,9 @@ O PHP será responsável pela lógica da aplicação, incluindo:
 ---
 
 ## 🔒 Segurança
+
 ---
+
 A segurança será considerada desde o início do desenvolvimento, principalmente nas áreas de autenticação, validação dos dados e proteção das informações dos utilizadores.
 
 ### Validação e proteção de dados
