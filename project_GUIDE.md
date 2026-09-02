@@ -183,6 +183,70 @@ Estas definições permitem manter uma identidade visual consistente em todas as
 
 ---
 
+## 🏗 Estrutura de pastas e ficheiros
+
+```
+CronoFin/
+├── .gitignore
+├── LICENSE
+├── README.md                            # Apresentação do projeto
+├── project_GUIDE.md                     # Documento teórico do projeto (requisitos, modelo de dados, regras de negócio)
+├── docs/
+│   └── design/                          # Documentação
+│       ├── logos/
+│       ├── moodboard_&_styleguide/
+│       ├── sitemap_&_er_database/
+│       └── wireframes/
+├── config/
+│   └── database.php                     # Ligação à base de dados (PDO)
+├── includes/
+│   ├── auth.php                         # Verifica se o utilizador tem sessão ativa (proteção de páginas privadas)
+│   ├── header.php
+│   └── footer.php
+├── models/                              # Funções que falam com as respectivas tabelas
+│   ├── User.php                         # Tabela `users`
+│   ├── Movement.php                     # Tabela `movements`
+│   ├── Category.php                     # Tabela `categories`
+│   └── Goal.php                         # Tabelas `goals` e `contributions`
+├── public/                              # Root
+│   ├── index.php                        # Página inicial/pública
+│   ├── login.php                        # Página de login
+│   ├── register.php                     # Página de registo
+│   ├── dashboard.php                    # Página principal após login (resumo/visão geral)
+│   ├── movements.php                    # Página com listagem e criação de movimentos (receitas/despesas)
+│   ├── goals.php                        # Página com listagem e gestão de objetivos de poupança
+│   ├── categories.php                   # Página de gestão das categorias do utilizador
+│   ├── profile.php                      # Página com dados e foto do utilizador
+│   └── assets/
+│       ├── css/
+│       │   ├── base.css                 # Reset, cores globais, tipografia
+│       │   ├── layout.css               # Header, footer, estrutura geral das páginas
+│       │   ├── components.css           # Botões, cards, formulários (elementos reutilizáveis)
+│       │   └── pages/                   # Estilos específicos de cada página
+│       │       ├── auth.css             # Eestilos do login/registo
+│       │       ├── dashboard.css
+│       │       ├── movements.css
+│       │       ├── goals.css
+│       │       ├── categories.css
+│       │       └── profile.css
+│       ├── js/
+│       │   ├── main.js                  # Lógica comum a todas as páginas
+│       │   └── pages/                   # Lógica específica de cada página
+│       │       ├── dashboard.js
+│       │       ├── movements.js
+│       │       ├── goals.js
+│       │       └── profile.js
+│       ├── img/                         # Imagens fixas do projeto
+│       └── uploads/                     # Ficheiros carregados pelos utilizadores
+│           ├── profiles/                # Fotos de perfil
+│           └── categories/              # Ícones de categorias
+└── database/
+    └── schema.sql                       # Estrutura da base de dados
+
+```
+
+---
+
 ## 📝 Conteúdo das páginas
 
 ---
