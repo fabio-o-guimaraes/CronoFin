@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Conexão à base de dados - CronoFin
+ * Conexão à base de dados
  * Usa PDO com prepared statements para evitar SQL Injection
  */
 

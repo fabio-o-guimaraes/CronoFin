@@ -200,6 +200,7 @@ CronoFin/
 ├── config/
 │   └── database.php                     # Ligação à base de dados (PDO)
 ├── includes/
+    ├── session.php
 │   ├── auth.php                         # Verifica se o utilizador tem sessão ativa (proteção de páginas privadas)
 │   ├── header.php
 │   └── footer.php
@@ -217,6 +218,7 @@ CronoFin/
 │   ├── goals.php                        # Página com listagem e gestão de objetivos de poupança
 │   ├── categories.php                   # Página de gestão das categorias do utilizador
 │   ├── profile.php                      # Página com dados e foto do utilizador
+│   ├── logout.php
 │   └── assets/
 │       ├── css/
 │       │   ├── base.css                 # Reset, cores globais, tipografia
