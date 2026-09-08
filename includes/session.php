@@ -20,7 +20,9 @@ function startSecureSession()
         ini_set('session.cookie_samesite', 'Strict');
 
         // NOTA: session.cookie_secure fica desativado propositadamente -
-        // exige HTTPS, que não existe no XAMPP local. Ativar quando o site for publicado.
+        // exige HTTPS, que não existe no XAMPP local. Ativar quando o site for publicado:
+
+        // ini_set('session.cookie_secure', 1);
 
         session_start();
     }
