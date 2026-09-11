@@ -1,9 +1,9 @@
 <?php
 
-/**
- * Header comum a todas as páginas
- * Não bloqueia o acesso (isso é feito pelo auth.php) - só adapta os links - mediante sessão iniciada
- */
+/* ===================================================================================================
+   Header comum a todas as páginas
+   Não bloqueia o acesso (isso é feito pelo auth.php) - só adapta os links - mediante sessão iniciada
+   =================================================================================================== */
 
 require_once __DIR__ . '/session.php';
 startSecureSession();

@@ -1,0 +1,111 @@
+/* =====================================
+   Reset, variáveis globais e tipografia 
+   ===================================== */
+
+/* Importar fonte Montserrat do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+ 
+/* ============================================
+   Variáveis de cor + Tipografia
+   ============================================ */
+:root {
+    /* Cor principal - CTA, progresso, elementos ativos */
+    --color-primary: #2A9D8F;
+    --color-primary-hover: #A8D5D0;
+ 
+    /* Texto principal, menu/sidebar, elementos escuros */
+    --color-dark: #263238;
+ 
+    /* Fundos e cartões */
+    --color-background: #F8FAF9;
+    --color-white: #FFFFFF;
+ 
+    /* Erros, valores negativos, ações destrutivas */
+    --color-danger: #D64545;
+    --color-danger-hover: #E9A7A7;
+ 
+    /* Tipografia */
+    --font-family-base: 'Montserrat', Arial, sans-serif;
+}
+
+/* ============================================
+   Reset básico
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+html {
+    scroll-behavior: smooth; /* Pronto para o caso de adicionar âncoras internas */
+}
+ 
+body {
+    font-family: var(--font-family-base);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-dark);
+    background-color: var(--color-background);
+}
+ 
+img {
+    max-width: 100%; /* imagens nunca ultrapassam a largura do elemento pai */
+    display: block;
+}
+ 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ============================================
+   Tipografia
+   ============================================ */
+h1, h2, h3, h4 {
+    color: var(--color-dark);
+    line-height: 1.2;
+}
+ 
+h1 {
+    font-weight: 700;
+    font-size: 40px; /* 40-48px */
+}
+ 
+h2 {
+    font-weight: 600;
+    font-size: 28px; /* 28-32px */
+}
+ 
+h3 {
+    font-weight: 600;
+    font-size: 20px; /* 20-24px */
+}
+ 
+h4 {
+    font-weight: 600;
+    font-size: 16px; /* 16-18px */
+}
+ 
+p {
+    font-weight: 400;
+    font-size: 14px; /* 14-16px */
+}
+ 
+/* Texto de menus (usado no header/nav) */
+.menu-text {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+/* ============================================
+   Responsividade - Desktops
+   ============================================ */
+@media (min-width: 1024px) {
+    h1 { font-size: 48px; }
+    h2 { font-size: 32px; }
+    h3 { font-size: 24px; }
+    h4 { font-size: 18px; }
+    p, .menu-text { font-size: 16px; }
+}

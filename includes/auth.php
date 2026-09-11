@@ -1,9 +1,9 @@
 <?php
 
-/**
- * Verificação de autenticação
- * Incluir este ficheiro no topo de todas as páginas da área privada
- */
+/* =================================================================
+    Verificação de autenticação
+    Incluir este ficheiro no topo de todas as páginas da área privada
+    ================================================================= */
 
 require_once __DIR__ . '/session.php';
 startSecureSession();

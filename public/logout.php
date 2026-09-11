@@ -1,9 +1,9 @@
 <?php
 
-/**
- * Logout
- * Destrói a sessão ativa e envia o utilizador para a página inicial
- */
+/* ==================================================================
+   Logout
+   Destrói a sessão ativa e envia o utilizador para a página inicial
+   ==================================================================*/
 
 require_once __DIR__ . '/../includes/session.php';
 startSecureSession();
