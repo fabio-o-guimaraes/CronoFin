@@ -1,0 +1,76 @@
+/* ============================================
+   Elementos reutilizáveis: botões, links
+   ============================================ */
+
+   /* ============================================
+   Botões
+   ============================================ */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    font-family: var(--font-family-base);
+    font-weight: 600; 
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s ease; 
+}
+
+@media (min-width: 1024px) {
+    .btn {
+        font-size: 16px;
+    }
+}
+
+/* Primary - ação principal */
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    border-color: var(--color-primary);
+}
+
+/* Secondary - ação alternativa */
+.btn-secondary {
+    background-color: var(--color-white);
+    color: var(--color-dark);
+}
+ 
+.btn-secondary:hover {
+    border-color: var(--color-dark);
+}
+
+/* Danger - ações destrutivas */
+.btn-danger {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+}
+ 
+.btn-danger:hover {
+    border-color: var(--color-danger);
+}
+
+
+/* ============================================
+   Links
+   ============================================ */
+.link-on-light {
+    color: var(--color-primary);
+}
+ 
+.link-on-light:hover {
+    text-decoration: underline;
+}
+ 
+/* Links sobre fundo escuro */
+.link-on-dark {
+    color: var(--color-white);
+}
+ 
+.link-on-dark:hover {
+    text-decoration: underline;
+}
