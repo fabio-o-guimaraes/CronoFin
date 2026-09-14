@@ -28,10 +28,12 @@
 .btn-primary {
     background-color: var(--color-primary);
     color: var(--color-white);
+    transition: background-color 0.2s ease;
 }
 
 .btn-primary:hover {
     border-color: var(--color-primary);
+    background-color: var(--color-primary-hover);
 }
 
 /* Secondary - ação alternativa */
@@ -48,10 +50,12 @@
 .btn-danger {
     background-color: var(--color-danger);
     color: var(--color-white);
+    transition: background-color 0.2s ease;
 }
  
 .btn-danger:hover {
     border-color: var(--color-danger);
+    background-color: var(--color-danger-hover);
 }
 
 

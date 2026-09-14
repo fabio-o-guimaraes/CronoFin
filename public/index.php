@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/pages/home.css">
     <!-- <link rel="stylesheet" href="assets/css/pages/profile.css"> editar caso use css especifico em certas páginas-->
 </head>
 
@@ -32,19 +33,19 @@
 
             <div class="benefits-grid">
                 <article class="benefit-card">
-                    <img src="assets/img/goal.jpg" alt="Alvo" class="benefit-icon">
+                    <img src="assets/img/goal_v2.png" alt="Alvo" class="benefit-icon">
                     <h3>Controlo</h3>
                     <p>Regista receitas e despesas com total clareza.</p>
                 </article>
 
                 <article class="benefit-card">
-                    <img src="assets/img/maquina.jpg" alt="Maquina de calcular" class="benefit-icon">
+                    <img src="assets/img/app.png" alt="Maquina de calcular" class="benefit-icon">
                     <h3>Organização</h3>
                     <p>Categoriza os teus movimentos, sem folhas de cálculo complicadas.</p>
                 </article>
 
                 <article class="benefit-card">
-                    <img src="assets/img/moedas.jpg" alt="Acumulação de moedas" class="benefit-icon">
+                    <img src="assets/img/graph.png" alt="Acumulação de moedas" class="benefit-icon">
                     <h3>Progresso</h3>
                     <p>Define objetivos de poupança e acompanha o teu caminho.</p>
                 </article>
