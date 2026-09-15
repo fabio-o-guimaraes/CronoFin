@@ -39,7 +39,7 @@
                 </article>
 
                 <article class="benefit-card">
-                    <img src="assets/img/app.png" alt="Maquina de calcular" class="benefit-icon">
+                    <img src="assets/img/app.png" alt="Máquina de calcular" class="benefit-icon">
                     <h3>Organização</h3>
                     <p>Categoriza os teus movimentos, sem folhas de cálculo complicadas.</p>
                 </article>
@@ -54,9 +54,14 @@
 
         <!-- Start now section -->
         <section class="cta-section">
-            <h2>Dá o primeiro passo</h2>
-            <p>Sem folhas de cálculo, sem complicações - só tu e as tuas finanças, organizadas num só lugar.</p>
-            <a href="register.php" class="btn btn-primary">Começar agora</a>
+            <div class="cta-content">
+                <img src="assets/img/money_bag.png" alt="Saco de moedas" class="cta-img">
+                <div class="cta-text">
+                    <h2>Dá o primeiro passo</h2>
+                    <p>Sem folhas de cálculo, sem complicações - só tu e as tuas finanças, organizadas num só lugar.</p>
+                    <a href="register.php" class="btn btn-secondary">Começar agora</a>
+                </div>
+            </div>
         </section>
 
     </main>
