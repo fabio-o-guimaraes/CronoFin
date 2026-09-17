@@ -6,22 +6,47 @@
    Hero Section
    ======================================= */
 .hero {
-    padding: 40px 20px;
-    text-align: center;
+    position: relative;
+    overflow: hidden; /* corta qualquer excesso da imagem que ultrapasse os limites da secção */
+    min-height: 400px; /* garante altura mínima, já que o conteúdo já não "empurra" o tamanho da secção como antes */
+    display: flex;
+    align-items: center; /* centra o texto verticalmente dentro da secção */
 }
 
-.hero h1 {
+.hero-bg-img {
+    position: absolute;
+    inset: 0; /* shorthand para top:0; right:0; bottom:0; left:0 - cobre a secção toda */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay { /* Camada escura semi-transparente para o texto ter contraste sobre a imagem. / <div> separado, em vez de opacity direto na imagem, para não perder nitidez.
+                 Fica por cima da imagem por vir depois dela no HTML (sem z-index definido). */
+    position: absolute;
+    inset: 0;
+    background-color: rgba(38, 50, 56, 0.4); /* camada escura semi-transparente, para o texto branco se destacar */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 40px 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.hero-content h1,
+.hero-content p {
+    color: var(--color-white);
+}
+
+.hero-content h1 {
     margin-bottom: 16px;
 }
 
-.hero p {
+.hero-content p {
     margin-bottom: 24px;
-}
-
-.hero-img {
-    width: 100%; /*ocupa 100% do elemento pai */
-    max-width: 800px; /* mas nunca + do que 800px */
-    margin: 0 auto 24px; /* centra a imagem horizontalmente e dá espaço abaixo */
 }
 
 /* ========================================

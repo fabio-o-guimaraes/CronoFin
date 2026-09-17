@@ -21,10 +21,13 @@
 
         <!-- Hero section -->
         <section class="hero">
-            <h1>Descobre para onde vai o teu dinheiro com o CronoFin</h1>
-            <p>Organiza as tuas receitas e despesas de forma simples e começa a construir hábitos financeiros melhores.</p>
-            <img class="hero-img" src="assets/img/porquinho.jpg" alt="Exemplo dashboard da aplicação"> <!-- alterar para print do dashboard -->
-            <a href="register.php" class="btn btn-primary">Criar conta</a>
+            <img src="assets/img/porquinho.jpg" alt="Exemplo dashboard da aplicação" class="hero-bg-img"> <!-- alterar para print do dashboard -->
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>Descobre para onde vai o teu dinheiro com o CronoFin</h1>
+                <p>Organiza as tuas receitas e despesas de forma simples e começa a construir hábitos financeiros melhores.</p>
+                <a href="register.php" class="btn btn-primary">Criar conta</a>
+            </div>
         </section>
 
         <!-- Benefits section -->
