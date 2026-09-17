@@ -67,6 +67,8 @@
     </main>
 
     <?php require_once '../includes/footer.php'; ?>
+
+    <script src="assets/js/main.js"></script>
 </body>
 
 </html>
