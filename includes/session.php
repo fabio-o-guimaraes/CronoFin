@@ -1,8 +1,12 @@
 <?php
 
 /**
- * Sessão segura
- * Centraliza o início de sessão com configurações de segurança.
+ * Sessão segura - "camada 1"
+ *
+ * Só liga o sistema de sessões do PHP (session_start()), com configurações
+ * de segurança extra - NÃO verifica login nem quem pode acessar a página.
+ * É a "camada 1": prepara o $_SESSION para poder ser usado com segurança.
+ *
  * Incluir este ficheiro em qualquer lugar que precise de $_SESSION
  * (auth.php, header.php, login.php, logout.php, etc.)
  */
