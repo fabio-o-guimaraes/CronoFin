@@ -2,7 +2,7 @@
 require_once '../includes/session.php';
 startSecureSession();
 
-// Se já estiver autenticado, não faz sentido ver a página de registo
+// Se já estiver autenticado redireciona para o index
 if (isset($_SESSION['user_id'])) {
     header('Location: index.php');
     exit;
@@ -37,12 +37,12 @@ if (isset($_SESSION['user_id'])) {
 
                 <div class="form-group">
                     <label for="name">Nome</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" required autocomplete="name">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required autocomplete="email">
                 </div>
 
                 <div class="form-group">
@@ -52,12 +52,12 @@ if (isset($_SESSION['user_id'])) {
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required minlength="8">
+                    <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
                 </div>
 
                 <div class="form-group">
                     <label for="password_confirm">Confirmar Password</label>
-                    <input type="password" id="password_confirm" name="password_confirm" required minlength="8">
+                    <input type="password" id="password_confirm" name="password_confirm" required minlength="8" autocomplete="new-password">
                 </div>
 
                 <div class="form-group form-group-checkbox">

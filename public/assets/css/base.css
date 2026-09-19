@@ -40,6 +40,7 @@
  
 html {
     scroll-behavior: smooth; /* Pronto para o caso de adicionar âncoras internas */
+    height: 100%; /* necessário para o body poder usar 100vh */
 }
  
 body {
@@ -49,8 +50,15 @@ body {
     line-height: 1.5;
     color: var(--color-dark);
     background-color: var(--color-background);
+    min-height: 100vh; /* o body nunca é mais baixo que o ecrã inteiro */
+    display: flex;
+    flex-direction: column; /* header, main, footer empilhados verticalmente */
 }
  
+main {
+    flex: 1; /* faz o main "esticar-se" para ocupar todo o espaço vazio entre header e footer, empurrando o footer para o fundo real do ecrã mesmo com pouco conteúdo */
+}
+
 img {
     max-width: 100%; /* imagens nunca ultrapassam a largura do elemento pai */
     display: block;
