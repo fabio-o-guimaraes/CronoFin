@@ -32,7 +32,7 @@ if (isset($_SESSION['user_id'])) {
         <section class="auth-form-section">
             <h1>Criar Conta</h1>
 
-            <form action="register_process.php" method="POST" class="auth-form" enctype="multipart/form-data">
+            <form action="actions/register_process.php" method="POST" class="auth-form" enctype="multipart/form-data">
                 <!-- enctype="multipart/form-data" obrigatório porque há um input type="file". Sem uploads de ficheiros, este atributo não seria necessário. -->
 
                 <div class="form-group">
@@ -47,7 +47,7 @@ if (isset($_SESSION['user_id'])) {
 
                 <div class="form-group">
                     <label for="image">Fotografia de perfil (opcional)</label>
-                    <input type="file" id="image" name="image" accept="image/*">
+                    <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/webp">
                 </div>
 
                 <div class="form-group">
