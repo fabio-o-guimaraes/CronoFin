@@ -32,7 +32,7 @@ if (isset($_SESSION['user_id'])) {
         <section class="auth-form-section">
             <h1>Iniciar Sessão</h1>
 
-            <form action="login_process.php" method="POST" class="auth-form">
+            <form action="actions/login_process.php" method="POST" class="auth-form">
 
                 <div class="form-group">
                     <label for="email">Email</label>
