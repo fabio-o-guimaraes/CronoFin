@@ -82,12 +82,12 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
     $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
     $imageFileName = uniqid('user_', true) . '.' . $extension;
 
-    $destination = __DIR__ . '/../assets/img/uploads/profiles/' . $imageFileName;
+    $destination = __DIR__ . '/../assets/uploads/profiles/' . $imageFileName;
     move_uploaded_file($_FILES['image']['tmp_name'], $destination);
 }
 
 // Inserir o novo utilizador na base de dados
-$stmt = $pdo->prepare('INSERT INTO users (name, email, password) VALUES (:name, :email, :password)');
+$stmt = $pdo->prepare('INSERT INTO users (name, email, password, image) VALUES (:name, :email, :password, :image)');
 $stmt->execute([
     'name' => $name,
     'email' => $email,
