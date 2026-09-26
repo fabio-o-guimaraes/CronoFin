@@ -17,6 +17,12 @@ $password = $_POST['password'] ?? '';
 $passwordConfirm = $_POST['password_confirm'] ?? '';
 $termsAccepted = isset($_POST['terms']);
 
+// Guarda os dados do formulário para repor no HTML se houver erro
+$_SESSION['form_data'] = [
+    'name' => $name,
+    'email' => $email,
+];
+
 // Validação campos vazios
 if ($name === '' || $email === '' || $password === '' || $passwordConfirm === '') {
     header('Location: ../register.php?error=empty');

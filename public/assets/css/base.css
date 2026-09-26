@@ -11,19 +11,22 @@
 :root {
     /* Cor principal - CTA, progresso, elementos ativos */
     --color-primary: #2A9D8F;
+    --color-primary-rgb: 42, 157, 143;
     --color-primary-hover: #A8D5D0;
- 
+
     /* Texto principal, menu/sidebar, elementos escuros */
     --color-dark: #263238;
     --color-dark-rgb: 38, 50, 56;
- 
+
     /* Fundos e cartões */
     --color-background: #F8FAF9;
     --color-white: #FFFFFF;
- 
+
     /* Erros, valores negativos, ações destrutivas */
     --color-danger: #D64545;
+    --color-danger-rgb: 214, 69, 69;
     --color-danger-hover: #E9A7A7;
+
  
     /* Tipografia */
     --font-family-base: 'Montserrat', Arial, sans-serif;
