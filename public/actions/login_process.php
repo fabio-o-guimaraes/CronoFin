@@ -14,6 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $email = trim($_POST['email'] ?? '');
 $password = $_POST['password'] ?? '';
 
+// Guarda o email para repor no HTML se houver erro
+$_SESSION['form_data'] = [
+    'email' => $email,
+];
+
 // Validação campos vazios
 if ($email === '' || $password === '') {
     header('Location: ../login.php?error=empty');
@@ -34,6 +39,7 @@ if (!$user || !password_verify($password, $user['password'])) {
 // Credenciais corretas - inicia a sessão do utilizador
 $_SESSION['user_id'] = $user['id_users'];
 $_SESSION['user_name'] = $user['name'];
+$_SESSION['user_email'] = $user['email'];
 
 header('Location: ../dashboard.php');
 exit;
