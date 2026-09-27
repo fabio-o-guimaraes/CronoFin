@@ -33,6 +33,7 @@ if ($isLoggedIn) {
 
         <ul class="main-menu" id="main-menu">
             <?php if ($isLoggedIn): ?>
+                <li><a href="profile.php" class="link-on-dark"><?= htmlspecialchars($_SESSION['user_name']) ?></a></li>
                 <li><a href="logout.php" class="link-on-dark">Sair</a></li>
             <?php else: ?>
                 <li><a href="login.php" class="link-on-dark">Iniciar Sessão</a></li>
