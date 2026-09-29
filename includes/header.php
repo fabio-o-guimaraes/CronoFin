@@ -20,6 +20,7 @@ if ($isLoggedIn) {
 
 <header class="site-header">
     <nav class="main-nav">
+
         <a href="<?= $logoLink ?>" class="brand">
             <img src="assets/img/icon_v2.svg" alt="Logótipo CronoFin" class="brand-logo">
             <img src="assets/img/CronoFin_v1.svg" class="brand-name">

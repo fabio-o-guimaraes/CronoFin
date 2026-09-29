@@ -77,6 +77,55 @@
 }
 
 /* ============================================
+   Sidebar / Navegação da aplicação
+   ============================================ */
+
+.app-layout {
+    padding-bottom: 64px;
+}
+
+.app-sidebar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+
+    background-color: var(--color-dark);
+}
+
+.sidebar-nav {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.sidebar-nav li {
+    flex: 1;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 64px;
+    padding: 8px;
+
+    color: var(--color-white);
+    text-decoration: none;
+}
+
+.sidebar-link-active {
+    /* Para definir o estilo visual depois. */
+}
+
+/* ============================================
    Footer
    ============================================ */
 .site-footer {
@@ -89,20 +138,60 @@
 /* ============================================
    Responsividade - Tablet e Desktop
    ============================================ */
+
+/* Header */
+
 @media (min-width: 768px) {
     .brand-name {
-        display: block; /* volta a mostrar o nome a partir do tablet/desktop */
+        display: block;
     }
 
     .menu-toggle {
-        display: none; /* hamburguer só existe no mobile */
+        display: none;
     }
 
     .main-menu {
-        display: flex; 
+        display: flex;
         position: static;
         flex-direction: row;
         background-color: transparent;
         padding: 0;
+    }
+}
+
+/* Sidebar */
+
+@media (min-width: 768px) {
+
+    .app-layout {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+
+        min-height: calc(100vh - 72px);
+
+        padding-bottom: 0;
+    }
+
+    .app-sidebar {
+        position: static;
+        width: 240px;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+
+        padding: 20px 12px;
+    }
+
+    .sidebar-nav li {
+        flex: initial;
+    }
+
+    .sidebar-link {
+        justify-content: flex-start;
+
+        min-height: 48px;
+        padding: 10px 12px;
     }
 }

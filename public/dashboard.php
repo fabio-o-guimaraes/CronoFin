@@ -33,9 +33,13 @@ if (!array_key_exists($section, $sections)) {
 <body>
     <?php require_once __DIR__ . '/../includes/header.php'; ?>
 
-    <main>
-        <?php require __DIR__ . '/../includes/sections/' . $section . '.php'; ?>
-    </main>
+    <div class="app-layout">
+        <?php require_once __DIR__ . '/../includes/sidebar.php'; ?>
+
+        <main class="app-content">
+            <?php require __DIR__ . '/../includes/sections/' . $section . '.php'; ?>
+        </main>
+    </div>
 
     <?php require_once __DIR__ . '/../includes/footer.php'; ?>
 
