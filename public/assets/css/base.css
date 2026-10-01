@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
  
 /* ============================================
-   Variáveis de cor + Tipografia
+   Variáveis de cor + Tipografia + Dashboard 
    ============================================ */
 :root {
     /* Cor principal - CTA, progresso, elementos ativos */
@@ -30,6 +30,11 @@
  
     /* Tipografia */
     --font-family-base: 'Montserrat', Arial, sans-serif;
+
+    /* Medidas do dashboard */
+    --header-height: 72px;      /* 16px + 40px (logo) + 16px de padding */
+    --bottom-nav-height: 64px;  /* altura da barra inferior no mobile */
+    --sidebar-width: 240px;     /* largura da sidebar no desktop */
 }
 
 /* ============================================

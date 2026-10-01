@@ -11,7 +11,8 @@
         <?php foreach ($sections as $key => $label): ?>
             <li>
                 <a href="dashboard.php?section=<?= $key ?>"
-                    class="sidebar-link <?= $key === $section ? 'sidebar-link-active' : '' ?>">
+                    class="sidebar-link <?= $key === $section ? 'sidebar-link-active' : '' ?>"
+                    <?= $key === $section ? 'aria-current="page"' : '' ?>>
                     <?= htmlspecialchars($label) ?>
                 </a>
             </li>

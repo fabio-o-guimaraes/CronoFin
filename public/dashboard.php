@@ -28,9 +28,10 @@ if (!array_key_exists($section, $sections)) {
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/pages/dashboard.css">
 </head>
 
-<body>
+<body class="dashboard-page">
     <?php require_once __DIR__ . '/../includes/header.php'; ?>
 
     <div class="app-layout">

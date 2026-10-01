@@ -7,15 +7,17 @@
    ============================================ */
 .site-header {
     background-color: var(--color-dark);
-    padding: 16px 20px;
+    height: var(--header-height);   
+    padding: 0 20px;                /* só espaço lateral; o vertical vem da altura */
     position: sticky;
     top: 0;
-    z-index: 100; 
+    z-index: 100;
 }
 
 .main-nav {
+    height: 100%;                   /* ocupa a altura toda do header */
     display: flex;
-    align-items: center;
+    align-items: center;            /* centra logo e menu na vertical */
     justify-content: space-between;
 }
 
@@ -63,7 +65,7 @@
     display: none; 
     list-style: none;
     position: absolute;
-    top: 64px;
+    top: var(--header-height);
     left: 0;
     right: 0;
     background-color: var(--color-dark);
