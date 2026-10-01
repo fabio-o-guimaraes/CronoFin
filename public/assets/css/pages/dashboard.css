@@ -1,0 +1,108 @@
+/* ============================================
+   Dashboard - estrutura (mobile first)
+   ============================================ */
+
+/* Ocupa o espaço entre header e footer, empurrando o footer para o fundo */
+.app-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-content {
+    padding: 20px;
+    min-width: 0; /* evita que conteúdo largo (tabelas) "rebente" o layout flex */
+}
+
+/* Sidebar = barra fixa em baixo */
+.app-sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--bottom-nav-height);
+    background-color: var(--color-dark);
+    z-index: 100;
+    overflow-x: auto;                /* scroll lateral */
+    scrollbar-width: none;           /* esconde a barra (Firefox) */
+}
+
+.app-sidebar::-webkit-scrollbar {
+    display: none;                   /* esconde a barra (Chrome/Safari) */
+}
+
+.sidebar-nav {
+    display: flex;                   /* itens em linha */
+    height: 100%;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    flex-shrink: 0;                  /* os itens não encolhem, por isso transbordam e há scroll */
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 24px;
+    color: var(--color-white);
+    font-weight: 500;
+    white-space: nowrap;             /* o texto não quebra linha */
+    border-top: 3px solid transparent;
+}
+
+.sidebar-link:hover {
+    color: var(--color-primary-hover);
+}
+
+.sidebar-link-active {
+    color: var(--color-primary);
+    border-top-color: var(--color-primary);
+}
+
+/* A barra fixa tapa o fundo da página, por isso o footer ganha espaço extra */
+.dashboard-page .site-footer {
+    padding-bottom: calc(20px + var(--bottom-nav-height));
+}
+
+/* ============================================
+   Tablet e Desktop - sidebar lateral
+   ============================================ */
+@media (min-width: 768px) {
+    .app-content {
+        padding: 32px;
+        margin-left: var(--sidebar-width);   /* deixa espaço para a sidebar fixa */
+    }
+
+    .app-sidebar {
+        top: var(--header-height);           /* começa logo abaixo do header */
+        right: auto;                         /* anula o right: 0 do mobile */
+        bottom: 0;                           /* termina no fundo do ecrã */
+        width: var(--sidebar-width);
+        height: auto;                        /* anula a altura da barra mobile; agora vem de top + bottom */
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .sidebar-nav {
+        flex-direction: column;
+        padding: 24px 0;
+    }
+
+    .sidebar-link {
+        height: auto;
+        padding: 12px 24px;
+        border-top: none;
+        border-left: 4px solid transparent;
+    }
+
+    .sidebar-link-active {
+        border-left-color: var(--color-primary);
+    }
+
+    .dashboard-page .site-footer {
+        margin-left: var(--sidebar-width);   /* o footer não fica por baixo da sidebar */
+        padding-bottom: 20px;
+    }
+}
