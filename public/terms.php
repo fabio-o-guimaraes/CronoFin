@@ -7,6 +7,9 @@
     <meta name="robots" content="noindex, nofollow">
     <title>CronoFin - Termos e Condições</title>
 
+    <!-- Fontes -->
+    <?php require __DIR__ . '/../includes/fonts.php'; ?>
+
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/layout.css">

@@ -11,10 +11,11 @@ $sections = [
 
 $section = $_GET['section'] ?? 'summary';
 
-if (!array_key_exists($section, $sections)) {
+if (!is_string($section) || !array_key_exists($section, $sections)) {
     $section = 'summary';
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-PT">
 
@@ -23,6 +24,9 @@ if (!array_key_exists($section, $sections)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
     <title>CronoFin - <?= htmlspecialchars($sections[$section]) ?></title>
+
+    <!-- Fontes -->
+    <?php require __DIR__ . '/../includes/fonts.php'; ?>
 
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/base.css">

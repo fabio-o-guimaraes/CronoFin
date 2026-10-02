@@ -18,6 +18,9 @@ if (isset($_SESSION['user_id'])) {
     <meta name="robots" content="noindex, nofollow">
     <title>CronoFin - Criar Conta</title>
 
+    <!-- Fontes -->
+    <?php require __DIR__ . '/../includes/fonts.php'; ?>
+
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/layout.css">

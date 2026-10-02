@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CronoFin - Gestão de Finanças Pessoais</title>
 
+    <!-- Fontes -->
+    <?php require __DIR__ . '/../includes/fonts.php'; ?>
+
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/layout.css">

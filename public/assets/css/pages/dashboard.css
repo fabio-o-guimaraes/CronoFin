@@ -23,22 +23,22 @@
     height: var(--bottom-nav-height);
     background-color: var(--color-dark);
     z-index: 100;
-    overflow-x: auto;                /* scroll lateral */
-    scrollbar-width: none;           /* esconde a barra (Firefox) */
+    overflow-x: auto;                     /* permite scroll lateral no caso dos itens não caberem*/
+    scrollbar-width: none;               /* esconde a barra (Firefox) */
 }
 
 .app-sidebar::-webkit-scrollbar {
-    display: none;                   /* esconde a barra (Chrome/Safari) */
+    display: none;                     /* esconde a barra (Chrome/Safari) */
 }
 
 .sidebar-nav {
-    display: flex;                   /* itens em linha */
+    display: flex;                   
     height: 100%;
     list-style: none;
 }
 
 .sidebar-nav li {
-    flex-shrink: 0;                  /* os itens não encolhem, por isso transbordam e há scroll */
+    flex-shrink: 0;                  /* Impede que os itens encolham, por isso transbordam e há scroll */
 }
 
 .sidebar-link {
@@ -48,7 +48,7 @@
     padding: 0 24px;
     color: var(--color-white);
     font-weight: 500;
-    white-space: nowrap;             /* o texto não quebra linha */
+    white-space: nowrap;             /* impede que o texto quebre em duas linhas */
     border-top: 3px solid transparent;
 }
 
