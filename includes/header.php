@@ -23,7 +23,7 @@ if ($isLoggedIn) {
 
         <a href="<?= $logoLink ?>" class="brand">
             <img src="assets/img/icon_v2.svg" alt="Logótipo CronoFin" class="brand-logo">
-            <img src="assets/img/CronoFin_v1.svg" class="brand-name">
+            <img src="assets/img/CronoFin_v1.svg" alt="" class="brand-name">
         </a>
 
         <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-menu">
@@ -34,7 +34,7 @@ if ($isLoggedIn) {
 
         <ul class="main-menu" id="main-menu">
             <?php if ($isLoggedIn): ?>
-                <li><a href="profile.php" class="link-on-dark"><?= htmlspecialchars($_SESSION['user_name']) ?></a></li>
+                <li><a href="dashboard.php?section=profile" class="link-on-dark"><?= htmlspecialchars($_SESSION['user_name']) ?></a></li>
                 <li><a href="logout.php" class="link-on-dark">Sair</a></li>
             <?php else: ?>
                 <li><a href="login.php" class="link-on-dark">Iniciar Sessão</a></li>
