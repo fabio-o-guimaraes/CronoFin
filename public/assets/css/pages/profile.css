@@ -1,0 +1,81 @@
+/* ============================================
+   Secção Perfil (dashboard)
+   ============================================ */
+
+/* Cartão branco que contém o formulário */
+.profile-section {
+    max-width: 600px;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    padding: 24px 20px;
+    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
+    margin: 0 auto;
+}
+
+.profile-section h1 {
+    font-size: 32px; 
+    margin-bottom: 24px;
+}
+
+/* Alertas de erro e de sucesso */
+.profile-alert {
+    padding: 12px 16px;
+    border-radius: 6px;
+    border-left: 4px solid;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.profile-alert-error {
+    background-color: rgba(var(--color-danger-rgb), 0.15);
+    border-left-color: var(--color-danger);
+    color: var(--color-danger);
+}
+
+.profile-alert-success {
+    background-color: rgba(var(--color-primary-rgb), 0.15);
+    border-left-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* Campos do formulário */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Zona da password */
+.profile-form h2 {
+    font-size: 20px;
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(var(--color-dark-rgb), 0.15);
+}
+
+/* Fotografia atual */
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+/* Botão */
+.profile-form .btn {
+    align-self: flex-start;
+    margin-top: 8px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .profile-section {
+        padding: 32px;
+    }
+
+    .profile-form h2 {
+        font-size: 24px;
+    }
+}

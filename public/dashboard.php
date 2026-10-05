@@ -33,6 +33,7 @@ if (!is_string($section) || !array_key_exists($section, $sections)) {
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components.css">
     <link rel="stylesheet" href="assets/css/pages/dashboard.css">
+    <link rel="stylesheet" href="assets/css/pages/profile.css">
 </head>
 
 <body class="dashboard-page">
