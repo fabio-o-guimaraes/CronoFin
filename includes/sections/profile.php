@@ -46,11 +46,11 @@ $success = isset($_GET['success']) && $_GET['success'] === 'updated';
     <h1>Perfil</h1>
 
     <?php if ($errorMessage): ?>
-        <div class="profile-alert profile-alert-error"><?= htmlspecialchars($errorMessage) ?></div>
+        <div class="alert alert-error"><?= htmlspecialchars($errorMessage) ?></div>
     <?php endif; ?>
 
     <?php if ($success): ?>
-        <div class="profile-alert profile-alert-success">Perfil atualizado com sucesso.</div>
+        <div class="alert alert-success">Perfil atualizado com sucesso.</div>
     <?php endif; ?>
 
     <form action="actions/profile_update.php" method="POST" enctype="multipart/form-data" class="profile-form">

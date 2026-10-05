@@ -41,13 +41,13 @@ if (isset($_SESSION['user_id'])) {
             <h1>Iniciar Sessão</h1>
 
             <?php if (isset($_GET['success']) && $_GET['success'] === 'registered'): ?>
-                <div class="auth-alert auth-alert-success">
+                <div class="alert alert-success">
                     Conta criada com sucesso! Inicia sessão para continuares.
                 </div>
             <?php endif; ?>
 
             <?php if (isset($_GET['error'])): ?>
-                <div class="auth-alert auth-alert-error">
+                <div class="alert alert-error">
                     <?php
                     switch ($_GET['error']) {
                         case 'empty':

@@ -41,7 +41,7 @@ if (isset($_SESSION['user_id'])) {
             <h1>Criar Conta</h1>
 
             <?php if (isset($_GET['error'])): ?>
-                <div class="auth-alert auth-alert-error">
+                <div class="alert alert-error">
                     <?php
                     switch ($_GET['error']) {
                         case 'empty':
