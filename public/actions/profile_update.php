@@ -5,7 +5,7 @@ startSecureSession();
 require_once __DIR__ . '/../../config/database.php';
 
 /* Redireciona sempre para a secção do perfil, com uma query extra (erro ou sucesso) */
-function redirectToProfile(string $query): void
+function redirectToProfile(string $query): never
 {
     header('Location: ../dashboard.php?section=profile&' . $query);
     exit;
