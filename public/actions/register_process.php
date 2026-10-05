@@ -67,13 +67,26 @@ $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 // Tratamento da foto de perfil (campo opcional)
 $imageFileName = null; // fica null se não for enviada nenhuma foto
 
-if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+$uploadError = $_FILES['image']['error'] ?? UPLOAD_ERR_NO_FILE;
 
-    // Validação do tipo de ficheiro
-    $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+if ($uploadError !== UPLOAD_ERR_NO_FILE) {
+
+    // Houve tentativa de envio, mas o PHP reportou um problema
+    if ($uploadError !== UPLOAD_ERR_OK) {
+        header('Location: ../register.php?error=imagesave');
+        exit;
+    }
+
+    // Tipos permitidos, e a extensão segura de cada um
+    $extensions = [
+        'image/jpeg' => 'jpg',
+        'image/png'  => 'png',
+        'image/webp' => 'webp',
+    ];
+
     $fileType = mime_content_type($_FILES['image']['tmp_name']);
 
-    if (!in_array($fileType, $allowedTypes)) {
+    if (!array_key_exists($fileType, $extensions)) {
         header('Location: ../register.php?error=imagetype');
         exit;
     }
@@ -84,12 +97,15 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         exit;
     }
 
-    // Gera um nome de ficheiro único, para nunca haver conflitos entre utilizadores
-    $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-    $imageFileName = uniqid('user_', true) . '.' . $extension;
+    // Nome único, com a extensão deduzida do tipo real
+    $imageFileName = 'user_' . bin2hex(random_bytes(8)) . '.' . $extensions[$fileType];
 
     $destination = __DIR__ . '/../assets/uploads/profiles/' . $imageFileName;
-    move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+
+    if (!move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
+        header('Location: ../register.php?error=imagesave');
+        exit;
+    }
 }
 
 // Inserir o novo utilizador na base de dados

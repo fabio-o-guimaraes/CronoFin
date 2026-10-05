@@ -68,6 +68,9 @@ if (isset($_SESSION['user_id'])) {
                         case 'imagesize':
                             echo 'A fotografia não pode exceder 2 MB.';
                             break;
+                        case 'imagesave':
+                            echo 'Não foi possível guardar a fotografia. Tenta novamente.';
+                            break;
                         default:
                             echo 'Ocorreu um erro. Tenta novamente.';
                     }

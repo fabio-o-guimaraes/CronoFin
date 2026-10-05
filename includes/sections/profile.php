@@ -65,7 +65,7 @@ $success = isset($_GET['success']) && $_GET['success'] === 'updated';
         </div>
 
         <div class="form-group">
-            <label for="image">Nova fotografia (opcional)</label>
+            <label for="image">Nova fotografia</label>
             <input type="file" id="image" name="image" accept="image/jpeg, image/png, image/webp">
         </div>
 
@@ -79,7 +79,7 @@ $success = isset($_GET['success']) && $_GET['success'] === 'updated';
             <input type="email" id="email" name="email" required autocomplete="email" value="<?= htmlspecialchars($emailValue) ?>">
         </div>
 
-        <h2>Alterar password (opcional)</h2>
+        <h2>Alterar password</h2>
 
         <div class="form-group">
             <label for="current_password">Password atual</label>
