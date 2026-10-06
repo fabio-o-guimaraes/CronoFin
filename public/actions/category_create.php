@@ -14,12 +14,12 @@ function redirectToCategories(string $query): never
 
 /* Guarda de entrada */
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../dashboard.php?section=categories');
+    header('Location: ../dashboard.php?section=categories'); /* redireciona se não for via POST */
     exit;
 }
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: ../login.php');
+    header('Location: ../login.php'); /* Redireciona se não tiver login */
     exit;
 }
 

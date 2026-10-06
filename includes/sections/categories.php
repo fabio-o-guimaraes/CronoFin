@@ -80,7 +80,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
     <h1>Categorias</h1>
 
     <?php if ($errorMessage): ?>
-        <div class="alert alert-error"><?= htmlspecialchars($errorMessage) ?></div>
+        <div class="alert alert-error"><?= htmlspecialchars($errorMessage) ?></div> <!-- abreviação de php echo *** -->
     <?php endif; ?>
 
     <?php if ($successMessage): ?>
