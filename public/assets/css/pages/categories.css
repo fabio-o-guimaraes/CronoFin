@@ -1,0 +1,167 @@
+/* ===========================
+   Secção Categorias 
+   =========================== */
+
+.categories-section {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.categories-section h1 {
+    font-size: 32px;
+    margin-bottom: 24px;
+}
+
+.categories-section h2 {
+    font-size: 20px;
+    margin: 32px 0 12px;
+}
+
+/* Formulário: cartão branco */
+.category-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    padding: 24px 20px;
+    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
+}
+
+.category-form h2 {
+    margin: 0;
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* Grelha de emojis */
+.icon-picker {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+    gap: 8px;
+    border: none;
+    padding: 0;
+    min-width: 0;
+}
+
+.icon-picker legend {
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0;
+    margin-bottom: 8px;
+}
+
+.icon-picker .icon-option {
+    position: relative;
+    cursor: pointer;
+}
+
+/* O radio fica escondido, mas continua acessível por teclado */
+.icon-picker .icon-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.icon-picker .icon-option span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    font-size: 24px;
+    border: 2px solid rgba(var(--color-dark-rgb), 0.15);
+    border-radius: 8px;
+    background-color: var(--color-white);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.icon-picker .icon-option:hover span {
+    border-color: var(--color-primary);
+}
+
+.icon-picker .icon-option input:checked + span {
+    border-color: var(--color-primary);
+    background-color: rgba(var(--color-primary-rgb), 0.15);
+}
+
+.icon-picker .icon-option input:focus-visible + span {
+    outline: 2px solid var(--color-dark);
+    outline-offset: 2px;
+}
+
+/* Listas de categorias: cartão branco */
+.category-list {
+    list-style: none;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
+    padding: 0 20px;
+}
+
+/* Cada categoria: uma linha com separador */
+.category-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(var(--color-dark-rgb), 0.15);
+}
+
+.category-item:last-child {
+    border-bottom: none;
+}
+
+.category-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.category-name {
+    flex: 1;
+    min-width: 0;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+.category-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.category-actions .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Inativas */
+.category-item-inactive .category-icon,
+.category-item-inactive .category-name {
+    opacity: 0.5;
+}
+
+/* ============================================
+   Tablet e Desktop
+   ============================================ */
+@media (min-width: 768px) {
+    .category-form {
+        padding: 32px;
+    }
+
+    .category-item {
+        flex-wrap: nowrap;
+    }
+
+    .category-actions {
+        width: auto;
+        flex-shrink: 0;
+    }
+}

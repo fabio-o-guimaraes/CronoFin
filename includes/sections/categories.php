@@ -110,13 +110,15 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
             <?php endforeach; ?>
         </fieldset>
 
-        <button type="submit" class="btn btn-primary">
-            <?= $editCategory ? 'Guardar alterações' : 'Criar categoria' ?>
-        </button>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <?= $editCategory ? 'Guardar alterações' : 'Criar categoria' ?>
+            </button>
 
-        <?php if ($editCategory): ?>
-            <a href="dashboard.php?section=categories" class="btn btn-secondary">Cancelar</a>
-        <?php endif; ?>
+            <?php if ($editCategory): ?>
+                <a href="dashboard.php?section=categories" class="btn btn-secondary">Cancelar</a>
+            <?php endif; ?>
+        </div>
     </form>
 
     <!-- Categorias do utilizador: ativas -->

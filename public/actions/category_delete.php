@@ -33,7 +33,7 @@ if (!is_string($idInput) || !ctype_digit($idInput)) {
 
 $id = (int) $idInput;
 
-/* A categoria tem de existir e ser do utilizador (as predefinidas nunca coincidem) */
+/* A categoria tem de existir e ser do utilizador */
 $stmt = $pdo->prepare(
     'SELECT id_categories FROM categories WHERE id_categories = :id AND user_id = :user_id'
 );

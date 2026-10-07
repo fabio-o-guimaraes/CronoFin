@@ -44,7 +44,7 @@ $_SESSION['category_form_data'] = [
 /* Em caso de erro, volta ao modo de edição desta categoria */
 $editQuery = 'edit=' . $id . '&';
 
-/* A categoria tem de existir e ser do utilizador (as predefinidas nunca coincidem) */
+/* A categoria tem de existir e ser do utilizador */
 $stmt = $pdo->prepare(
     'SELECT id_categories FROM categories WHERE id_categories = :id AND user_id = :user_id'
 );
@@ -55,7 +55,7 @@ if (!$stmt->fetch()) {
     redirectToCategories('error=notfound');
 }
 
-/* Validar nome e ícone (igual ao criar, mas com $editQuery) */
+/* Validar nome e ícone */
 if ($name === '') {
     redirectToCategories($editQuery . 'error=empty');
 }

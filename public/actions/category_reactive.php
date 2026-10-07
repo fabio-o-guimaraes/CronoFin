@@ -23,6 +23,13 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $userId = (int) $_SESSION['user_id'];
+$idInput = $_POST['id'] ?? '';
+
+if (!is_string($idInput) || !ctype_digit($idInput)) {
+    redirectToCategories('error=notfound');
+}
+
+$id = (int) $idInput;
 
 /* Reativa só se for do utilizador e estiver inativa */
 try {
