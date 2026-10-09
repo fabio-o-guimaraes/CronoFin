@@ -15,8 +15,30 @@ $stmt = $pdo->prepare(
 $stmt->execute(['id' => $userId]);
 $allCategories = $stmt->fetchAll();
 
-/* Para registar novos movimentos, só as ativas */
-$formCategories = array_filter($allCategories, fn($c) => $c['status'] === 'active');
+/* Modo de edição: ?edit=ID */
+$editId = (isset($_GET['edit']) && is_string($_GET['edit']) && ctype_digit($_GET['edit']))
+    ? (int) $_GET['edit']
+    : 0;
+
+$editMovement = null;
+
+if ($editId !== 0) {
+    $stmt = $pdo->prepare(
+        'SELECT id_movements, date, value, description, type, category_id
+         FROM movements
+         WHERE id_movements = :id AND user_id = :user_id'
+    );
+    $stmt->execute(['id' => $editId, 'user_id' => $userId]);
+    $editMovement = $stmt->fetch() ?: null;
+}
+
+/* Para registar ou editar, só as ativas (na edição, mantém-se a categoria atual do movimento, mesmo inativa) */
+$formCategories = array_filter(
+    $allCategories,
+    fn($c) =>
+    $c['status'] === 'active'
+        || ($editMovement !== null && (int) $c['id_categories'] === (int) $editMovement['category_id'])
+);
 
 /* Filtros recebidos por GET (cada um é validado, e se for inválido fica vazio) */
 $search = isset($_GET['search']) && is_string($_GET['search'])
@@ -77,11 +99,11 @@ $hasFilters = $search !== '' || $typeFilter !== '' || $categoryFilter !== 0 || $
 $formData = $_SESSION['movement_form_data'] ?? [];
 unset($_SESSION['movement_form_data']);
 
-$typeValue        = $formData['type']        ?? 'expense';
-$valueValue       = $formData['value']       ?? '';
-$dateValue        = $formData['date']        ?? date('Y-m-d');
-$categoryValue    = (int) ($formData['category'] ?? 0);
-$descriptionValue = $formData['description'] ?? '';
+$typeValue        = $formData['type']        ?? ($editMovement['type'] ?? 'expense');
+$valueValue       = $formData['value']       ?? ($editMovement ? number_format((float) $editMovement['value'], 2, ',', '') : '');
+$dateValue        = $formData['date']        ?? ($editMovement['date'] ?? date('Y-m-d'));
+$categoryValue    = (int) ($formData['category'] ?? ($editMovement['category_id'] ?? 0));
+$descriptionValue = $formData['description'] ?? ($editMovement['description'] ?? '');
 
 /* Mensagens de erro e de sucesso */
 $errorMessages = [
@@ -124,11 +146,16 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
         <div class="alert alert-success"><?= htmlspecialchars($successMessage) ?></div>
     <?php endif; ?>
 
-    <!-- Formulário: novo movimento -->
-    <form action="actions/movement_create.php" method="POST" class="movement-form">
-        <h2>Novo movimento</h2>
+    <!-- Formulário: novo movimento / editar movimento -->
+    <form action="actions/<?= $editMovement ? 'movement_update' : 'movement_create' ?>.php" method="POST" class="movement-form">
+        <h2><?= $editMovement ? 'Editar movimento' : 'Novo movimento' ?></h2>
+
+        <?php if ($editMovement): ?>
+            <input type="hidden" name="id" value="<?= (int) $editMovement['id_movements'] ?>">
+        <?php endif; ?>
 
         <fieldset class="form-group type-picker">
+
             <legend>Tipo</legend>
 
             <label class="type-option">
@@ -170,7 +197,13 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Registar movimento</button>
+            <button type="submit" class="btn btn-primary">
+                <?= $editMovement ? 'Guardar alterações' : 'Registar movimento' ?>
+            </button>
+
+            <?php if ($editMovement): ?>
+                <a href="dashboard.php?section=movements" class="btn btn-secondary">Cancelar</a>
+            <?php endif; ?>
         </div>
     </form>
 
@@ -178,8 +211,10 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
     <form action="dashboard.php" method="GET" class="movement-filters">
         <input type="hidden" name="section" value="movements">
 
+        <h2>Pesquisar e filtrar</h2>
+
         <div class="form-group">
-            <label for="search">Pesquisar</label>
+            <label for="search">Descrição</label>
             <input type="text" id="search" name="search" placeholder="Descrição..." value="<?= htmlspecialchars($search) ?>">
         </div>
 
@@ -244,6 +279,15 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
                     <span class="movement-value movement-value-<?= htmlspecialchars($movement['type']) ?>">
                         <?= $movement['type'] === 'income' ? '+' : '−' ?> <?= formatMoney($movement['value']) ?>
                     </span>
+
+                    <div class="movement-actions">
+                        <a href="dashboard.php?section=movements&edit=<?= (int) $movement['id_movements'] ?>" class="btn btn-secondary">Editar</a>
+
+                        <form action="actions/movement_delete.php" method="POST" onsubmit="return confirm('Eliminar este movimento? Esta ação não pode ser desfeita.');">
+                            <input type="hidden" name="id" value="<?= (int) $movement['id_movements'] ?>">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
                 </li>
             <?php endforeach; ?>
         </ul>

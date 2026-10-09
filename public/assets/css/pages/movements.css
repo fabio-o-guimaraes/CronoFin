@@ -1,0 +1,232 @@
+/* ===========================
+   Secção Movimentos
+   =========================== */
+.movements-section {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.movements-section h1 {
+    font-size: 32px;
+    margin-bottom: 24px;
+}
+
+.movements-section h2 {
+    font-size: 20px;
+    margin: 32px 0 12px;
+}
+
+/* Formulário e filtros: cartões brancos */
+.movement-form,
+.movement-filters {
+    background-color: var(--color-white);
+    border-radius: 8px;
+    padding: 24px 20px;
+    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
+}
+
+.movement-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.movement-form h2,
+.movement-filters h2 {
+    margin: 0;
+}
+
+.movement-filters h2 {
+    grid-column: 1 / -1;
+}
+
+/* Escolha do tipo: dois botões lado a lado */
+.type-picker {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    border: none;
+    padding: 0;
+    min-width: 0;
+}
+
+.type-picker legend {
+    grid-column: 1 / -1;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0;
+    margin-bottom: 4px;
+}
+
+.type-picker .type-option {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Botões centrados nos cartões */
+.movement-form .form-actions,
+.movement-filters .form-actions {
+    justify-content: center;
+}
+
+/* O radio fica escondido, mas continua acessível por teclado */
+.type-picker .type-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.type-picker .type-option span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid rgba(var(--color-dark-rgb), 0.15);
+    border-radius: 8px;
+    background-color: var(--color-white);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.type-picker .type-option:hover span {
+    border-color: rgba(var(--color-dark-rgb), 0.4);
+}
+
+/* Selecionado: despesa a vermelho, receita à cor principal */
+.type-picker .type-option input[value="expense"]:checked + span {
+    border-color: var(--color-danger);
+    background-color: rgba(var(--color-danger-rgb), 0.15);
+    color: var(--color-danger);
+}
+
+.type-picker .type-option input[value="income"]:checked + span {
+    border-color: var(--color-primary);
+    background-color: rgba(var(--color-primary-rgb), 0.15);
+    color: var(--color-primary);
+}
+
+.type-picker .type-option input:focus-visible + span {
+    outline: 2px solid var(--color-dark);
+    outline-offset: 2px;
+}
+
+/* Filtros: uma coluna no telemóvel */
+.movement-filters {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.movement-filters .form-actions {
+    grid-column: 1 / -1;
+}
+
+/* Lista de movimentos: cartão branco */
+.movement-list {
+    list-style: none;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
+    padding: 0 20px;
+}
+
+/* Cada movimento: uma linha com separador */
+.movement-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(var(--color-dark-rgb), 0.15);
+}
+
+.movement-item:last-child {
+    border-bottom: none;
+}
+
+.movement-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.movement-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.movement-description {
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+.movement-meta {
+    font-size: 12px;
+    color: rgba(var(--color-dark-rgb), 0.6);
+}
+
+.movement-value {
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.movement-value-income {
+    color: var(--color-primary);
+}
+
+.movement-value-expense {
+    color: var(--color-danger);
+}
+
+/* Botões de cada movimento */
+.movement-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.movement-actions .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* ============================================
+   Tablet e Desktop
+   ============================================ */
+@media (min-width: 768px) {
+    .movement-form,
+    .movement-filters {
+        padding: 32px;
+    }
+
+    .movement-filters {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .movement-meta {
+        font-size: 14px;
+    }
+
+    .movement-value {
+        font-size: 16px;
+    }
+
+    .movement-item {
+        flex-wrap: nowrap;
+    }
+
+    .movement-actions {
+        width: auto;
+        flex-shrink: 0;
+    }
+}
+

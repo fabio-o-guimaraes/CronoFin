@@ -32,12 +32,6 @@
     margin: 0;
 }
 
-.form-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
 /* Grelha de emojis */
 .icon-picker {
     display: grid;
