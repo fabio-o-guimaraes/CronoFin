@@ -54,8 +54,12 @@ if (!preg_match('/^\d+(\.\d{1,2})?$/', $normalizedValue)) {
 
 $value = (float) $normalizedValue;
 
-if ($value <= 0 || $value > 99999999.99) {
+if ($value <= 0) {
     redirectToMovements('error=value');
+}
+
+if ($value > 99999999.99) {
+    redirectToMovements('error=toolarge');
 }
 
 /* Validar data */

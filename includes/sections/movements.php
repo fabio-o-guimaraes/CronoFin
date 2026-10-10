@@ -109,6 +109,7 @@ $descriptionValue = $formData['description'] ?? ($editMovement['description'] ??
 $errorMessages = [
     'type'        => 'O tipo de movimento não é válido.',
     'value'       => 'Indica um valor válido, maior que zero.',
+    'toolarge'    => 'O valor não pode ser superior a 99 999 999,99 €.',
     'date'        => 'A data não é válida.',
     'future'      => 'A data não pode ser futura.',
     'category'    => 'Escolhe uma categoria válida.',
@@ -171,7 +172,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
 
         <div class="form-group">
             <label for="value">Valor (€)</label>
-            <input type="text" id="value" name="value" inputmode="decimal" placeholder="0,00" required value="<?= htmlspecialchars($valueValue) ?>">
+            <input type="text" id="value" name="value" inputmode="decimal" placeholder="0,00" maxlength="12" required value="<?= htmlspecialchars($valueValue) ?>">
         </div>
 
         <div class="form-group">
