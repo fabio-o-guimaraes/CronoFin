@@ -26,7 +26,7 @@ if ($editId !== 0) {
     $stmt = $pdo->prepare(
         'SELECT id_movements, date, value, description, type, category_id
          FROM movements
-         WHERE id_movements = :id AND user_id = :user_id'
+         WHERE id_movements = :id AND user_id = :user_id AND goal_id IS NULL'
     );
     $stmt->execute(['id' => $editId, 'user_id' => $userId]);
     $editMovement = $stmt->fetch() ?: null;
@@ -82,8 +82,8 @@ if ($monthFilter !== '') {
 }
 
 $stmt = $pdo->prepare(
-    'SELECT m.id_movements, m.date, m.value, m.description, m.type, m.category_id,
-            c.name AS category_name, c.icon AS category_icon
+    'SELECT m.id_movements, m.date, m.value, m.description, m.type, m.category_id, m.goal_id,
+        c.name AS category_name, c.icon AS category_icon
      FROM movements m
      JOIN categories c ON c.id_categories = m.category_id
      WHERE ' . implode(' AND ', $where) . '
@@ -272,6 +272,11 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
                         <span class="movement-description">
                             <?= htmlspecialchars($movement['description'] ?: $movement['category_name']) ?>
                         </span>
+
+                        <?php if ($movement['goal_id'] !== null): ?>
+                            <span class="movement-tag" title="Criado ao adquirir um objetivo">Objetivo</span>
+                        <?php endif; ?>
+
                         <span class="movement-meta">
                             <?= htmlspecialchars($movement['category_name']) ?> · <?= formatDate($movement['date']) ?>
                         </span>
@@ -281,14 +286,16 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
                         <?= $movement['type'] === 'income' ? '+' : '−' ?> <?= formatMoney($movement['value']) ?>
                     </span>
 
-                    <div class="movement-actions">
-                        <a href="dashboard.php?section=movements&edit=<?= (int) $movement['id_movements'] ?>" class="btn btn-secondary">Editar</a>
+                    <?php if ($movement['goal_id'] === null): ?>
+                        <div class="movement-actions">
+                            <a href="dashboard.php?section=movements&edit=<?= (int) $movement['id_movements'] ?>" class="btn btn-secondary">Editar</a>
 
-                        <form action="actions/movement_delete.php" method="POST" onsubmit="return confirm('Eliminar este movimento? Esta ação não pode ser desfeita.');">
-                            <input type="hidden" name="id" value="<?= (int) $movement['id_movements'] ?>">
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
-                    </div>
+                            <form action="actions/movement_delete.php" method="POST" onsubmit="return confirm('Eliminar este movimento? Esta ação não pode ser desfeita.');">
+                                <input type="hidden" name="id" value="<?= (int) $movement['id_movements'] ?>">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </div>
+                    <?php endif; ?>
                 </li>
             <?php endforeach; ?>
         </ul>

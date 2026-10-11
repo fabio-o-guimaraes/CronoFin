@@ -35,7 +35,7 @@ $id = (int) $idInput;
 
 /* Elimina só se for do utilizador */
 try {
-    $stmt = $pdo->prepare('DELETE FROM movements WHERE id_movements = :id AND user_id = :user_id');
+    $stmt = $pdo->prepare('DELETE FROM movements WHERE id_movements = :id AND user_id = :user_id AND goal_id IS NULL');
     $stmt->execute(['id' => $id, 'user_id' => $userId]);
 } catch (PDOException $e) {
     error_log('Erro ao eliminar movimento: ' . $e->getMessage());

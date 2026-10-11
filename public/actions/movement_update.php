@@ -35,7 +35,7 @@ $id = (int) $idInput;
 
 /* O movimento tem de existir e ser do utilizador */
 $stmt = $pdo->prepare(
-    'SELECT category_id FROM movements WHERE id_movements = :id AND user_id = :user_id'
+    'SELECT category_id FROM movements WHERE id_movements = :id AND user_id = :user_id AND goal_id IS NULL'
 );
 $stmt->execute(['id' => $id, 'user_id' => $userId]);
 $current = $stmt->fetch();
@@ -124,7 +124,7 @@ try {
     $stmt = $pdo->prepare(
         'UPDATE movements
          SET date = :date, value = :value, description = :description, type = :type, category_id = :category_id
-         WHERE id_movements = :id AND user_id = :user_id'
+         WHERE id_movements = :id AND user_id = :user_id AND goal_id IS NULL'
     );
     $stmt->execute([
         'date'        => $date,

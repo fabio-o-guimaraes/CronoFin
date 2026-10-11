@@ -199,6 +199,17 @@
     line-height: 1.5;
 }
 
+/* Etiqueta dos movimentos criados por objetivos */
+.movement-tag {
+    align-self: flex-start;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background-color: rgba(var(--color-primary-rgb), 0.15);
+    color: var(--color-primary);
+}
+
 /* ============================================
    Tablet e Desktop
    ============================================ */

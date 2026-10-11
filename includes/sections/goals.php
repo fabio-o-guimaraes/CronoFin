@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../format.php';
 require_once __DIR__ . '/../finance.php';
+require_once __DIR__ . '/../category_icons.php';
 
 $userId = (int) $_SESSION['user_id'];
 
@@ -34,6 +35,47 @@ foreach ($activeGoals as $candidate) {
     }
 }
 
+/* Modo de aquisição: ?acquire=ID (só objetivos ativos do utilizador, e nunca ao mesmo tempo que a edição) */
+$acquireId = (isset($_GET['acquire']) && is_string($_GET['acquire']) && ctype_digit($_GET['acquire']))
+    ? (int) $_GET['acquire']
+    : 0;
+
+$acquireGoal = null;
+if ($editGoal === null) {
+    foreach ($activeGoals as $candidate) {
+        if ((int) $candidate['id_goals'] === $acquireId) {
+            $acquireGoal = $candidate;
+            break;
+        }
+    }
+}
+
+/* Categorias disponíveis para a despesa (só no modo de aquisição) */
+$acquireCategories = [];
+if ($acquireGoal !== null) {
+    $stmt = $pdo->prepare(
+        'SELECT id_categories, name, icon
+         FROM categories
+         WHERE status = \'active\' AND (user_id IS NULL OR user_id = :user_id)
+         ORDER BY name'
+    );
+    $stmt->execute(['user_id' => $userId]);
+    $acquireCategories = $stmt->fetchAll();
+}
+
+/* Se houve erro no envio anterior, repõe o que o utilizador tinha escrito */
+$acquireData = $_SESSION['goal_acquire_form_data'] ?? [];
+unset($_SESSION['goal_acquire_form_data']);
+
+$spentValue = $acquireData['spent']
+    ?? (($acquireGoal !== null && (float) $acquireGoal['reserved'] > 0)
+        ? number_format((float) $acquireGoal['reserved'], 2, ',', '')
+        : '');
+$acquireDate        = $acquireData['date']         ?? date('Y-m-d');
+$acquireCategory    = (int) ($acquireData['category'] ?? 0);
+$acquireNewCategory = $acquireData['new_category'] ?? '';
+$acquireDescription = $acquireData['description']  ?? ($acquireGoal['name'] ?? '');
+
 /* Objetivos adquiridos, com a despesa que foi registada ao adquirir */
 $stmt = $pdo->prepare(
     'SELECT g.id_goals, g.name, m.value AS spent, m.date AS spent_date
@@ -64,6 +106,12 @@ $errorMessages = [
     'exceedreserved' => 'Não podes retirar mais do que o valor reservado.',
     'belowreserved'  => 'A meta não pode ser inferior ao valor já reservado.',
     'notfound'       => 'O objetivo não foi encontrado.',
+    'date'       => 'A data não é válida.',
+    'future'     => 'A data não pode ser futura.',
+    'category'   => 'Escolhe uma categoria ou cria uma nova.',
+    'catexists'  => 'Já existe uma categoria com esse nome. Escolhe-a na lista.',
+    'catlength'  => 'O nome da categoria não pode ter mais de 100 caracteres.',
+    'desclength' => 'A descrição não pode ter mais de 100 caracteres.',
 ];
 
 $successMessages = [
@@ -111,40 +159,95 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
         </div>
     </div>
 
-    <!-- Formulário: novo objetivo / editar objetivo -->
-    <form action="actions/<?= $editGoal ? 'goal_update' : 'goal_create' ?>.php" method="POST" class="goal-form">
-        <h2><?= $editGoal ? 'Editar objetivo' : 'Novo objetivo' ?></h2>
+    <?php if ($acquireGoal): ?>
 
-        <?php if ($editGoal): ?>
-            <input type="hidden" name="id" value="<?= (int) $editGoal['id_goals'] ?>">
-        <?php endif; ?>
+        <!-- Formulário: adquirir objetivo -->
+        <form action="actions/goal_acquire.php" method="POST" class="goal-form">
+            <h2>Adquirir objetivo</h2>
 
-        <div class="form-group">
-            <label for="name">Nome</label>
-            <input type="text" id="name" name="name" maxlength="100" required value="<?= htmlspecialchars($nameValue) ?>">
-        </div>
+            <input type="hidden" name="id" value="<?= (int) $acquireGoal['id_goals'] ?>">
 
-        <div class="form-group">
-            <label for="target">Meta (€)</label>
-            <input type="text" id="target" name="target" inputmode="decimal" placeholder="0,00" maxlength="12" required value="<?= htmlspecialchars($targetValue) ?>">
-        </div>
-
-        <?php if ($editGoal): ?>
             <p class="goal-form-hint">
-                Já tens <?= formatMoney($editGoal['reserved']) ?> reservado, por isso a meta não pode ser inferior a este valor.
+                <?= htmlspecialchars($acquireGoal['name']) ?>: tens <?= formatMoney($acquireGoal['reserved']) ?> reservado.
+                Indica o valor realmente gasto. Se for menor, a diferença volta ao saldo disponível; se for maior, o excesso sai do saldo.
             </p>
-        <?php endif; ?>
 
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">
-                <?= $editGoal ? 'Guardar alterações' : 'Criar objetivo' ?>
-            </button>
+            <div class="form-group">
+                <label for="spent">Valor gasto (€)</label>
+                <input type="text" id="spent" name="spent" inputmode="decimal" placeholder="0,00" maxlength="12" required value="<?= htmlspecialchars($spentValue) ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="spent-date">Data</label>
+                <input type="date" id="spent-date" name="date" max="<?= date('Y-m-d') ?>" required value="<?= htmlspecialchars($acquireDate) ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="acquire-category">Categoria</label>
+                <select id="acquire-category" name="category">
+                    <option value="">Escolhe uma categoria</option>
+                    <?php foreach ($acquireCategories as $category): ?>
+                        <option value="<?= (int) $category['id_categories'] ?>" <?= (int) $category['id_categories'] === $acquireCategory ? 'selected' : '' ?>>
+                            <?= htmlspecialchars(($category['icon'] ?? DEFAULT_CATEGORY_ICON) . ' ' . $category['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="new-category">Ou cria uma nova categoria (opcional)</label>
+                <input type="text" id="new-category" name="new_category" maxlength="100" value="<?= htmlspecialchars($acquireNewCategory) ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="acquire-description">Descrição</label>
+                <input type="text" id="acquire-description" name="description" maxlength="100" value="<?= htmlspecialchars($acquireDescription) ?>">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Confirmar aquisição</button>
+                <a href="dashboard.php?section=goals" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+
+    <?php else: ?>
+
+        <!-- Formulário: novo objetivo / editar objetivo -->
+        <form action="actions/<?= $editGoal ? 'goal_update' : 'goal_create' ?>.php" method="POST" class="goal-form">
+            <h2><?= $editGoal ? 'Editar objetivo' : 'Novo objetivo' ?></h2>
 
             <?php if ($editGoal): ?>
-                <a href="dashboard.php?section=goals" class="btn btn-secondary">Cancelar</a>
+                <input type="hidden" name="id" value="<?= (int) $editGoal['id_goals'] ?>">
             <?php endif; ?>
-        </div>
-    </form>
+
+            <div class="form-group">
+                <label for="name">Nome</label>
+                <input type="text" id="name" name="name" maxlength="100" required value="<?= htmlspecialchars($nameValue) ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="target">Meta (€)</label>
+                <input type="text" id="target" name="target" inputmode="decimal" placeholder="0,00" maxlength="12" required value="<?= htmlspecialchars($targetValue) ?>">
+            </div>
+
+            <?php if ($editGoal): ?>
+                <p class="goal-form-hint">
+                    Já tens <?= formatMoney($editGoal['reserved']) ?> reservado, por isso a meta não pode ser inferior a este valor.
+                </p>
+            <?php endif; ?>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <?= $editGoal ? 'Guardar alterações' : 'Criar objetivo' ?>
+                </button>
+
+                <?php if ($editGoal): ?>
+                    <a href="dashboard.php?section=goals" class="btn btn-secondary">Cancelar</a>
+                <?php endif; ?>
+            </div>
+        </form>
+
+    <?php endif; ?>
 
     <!-- Objetivos ativos -->
     <h2>Os meus objetivos</h2>
@@ -192,6 +295,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
 
                     <div class="goal-actions">
                         <a href="dashboard.php?section=goals&edit=<?= (int) $goal['id_goals'] ?>" class="btn btn-secondary">Editar</a>
+                        <a href="dashboard.php?section=goals&acquire=<?= (int) $goal['id_goals'] ?>" class="btn btn-primary">Adquirido</a>
 
                         <form action="actions/goal_delete.php" method="POST" onsubmit="return confirm('Eliminar este objetivo? O valor reservado volta ao saldo disponível.');">
                             <input type="hidden" name="id" value="<?= (int) $goal['id_goals'] ?>">
