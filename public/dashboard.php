@@ -36,6 +36,7 @@ if (!is_string($section) || !array_key_exists($section, $sections)) {
     <link rel="stylesheet" href="assets/css/pages/profile.css">
     <link rel="stylesheet" href="assets/css/pages/categories.css">
     <link rel="stylesheet" href="assets/css/pages/movements.css">
+    <link rel="stylesheet" href="assets/css/pages/goals.css">
 </head>
 
 <body class="dashboard-page">
