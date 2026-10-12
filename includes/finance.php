@@ -13,8 +13,8 @@ function getTotalReserved(PDO $pdo, int $userId): float
     return round((float) $stmt->fetchColumn(), 2);
 }
 
-/* Saldo disponível = receitas - despesas - reservado nos objetivos ativos */
-function getAvailableBalance(PDO $pdo, int $userId): float
+/* Saldo total = receitas - despesas (inclui o dinheiro reservado) */
+function getTotalBalance(PDO $pdo, int $userId): float
 {
     $stmt = $pdo->prepare(
         'SELECT COALESCE(SUM(CASE WHEN type = \'income\' THEN value ELSE -value END), 0)
@@ -22,7 +22,12 @@ function getAvailableBalance(PDO $pdo, int $userId): float
          WHERE user_id = :user_id'
     );
     $stmt->execute(['user_id' => $userId]);
-    $movementsBalance = (float) $stmt->fetchColumn();
 
-    return round($movementsBalance - getTotalReserved($pdo, $userId), 2);
+    return round((float) $stmt->fetchColumn(), 2);
+}
+
+/* Saldo disponível = saldo total - reservado nos objetivos ativos */
+function getAvailableBalance(PDO $pdo, int $userId): float
+{
+    return round(getTotalBalance($pdo, $userId) - getTotalReserved($pdo, $userId), 2);
 }

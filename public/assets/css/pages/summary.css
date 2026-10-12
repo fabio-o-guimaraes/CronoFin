@@ -1,0 +1,221 @@
+/* ===========================
+   Secção Resumo
+   =========================== */
+
+.summary-section {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.summary-section h1 {
+    font-size: 32px;
+    margin-bottom: 24px;
+}
+
+.summary-section h2 {
+    font-size: 20px;
+    margin: 32px 0 12px;
+}
+
+/* Indicadores: o saldo total ocupa a linha de cima, os outros dois ficam lado a lado */
+.summary-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.summary-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
+}
+
+.summary-card-main {
+    grid-column: 1 / -1;
+    border-left: 4px solid var(--color-primary);
+}
+
+.summary-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(var(--color-dark-rgb), 0.6);
+}
+
+.summary-value {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.summary-card-main .summary-value {
+    font-size: 28px;
+}
+
+/* Cores dos valores (usadas nos indicadores e nas listas) */
+.summary-value-income {
+    color: var(--color-primary);
+}
+
+.summary-value-expense {
+    color: var(--color-danger);
+}
+
+/* Disponível e reservado, por baixo do saldo total */
+.summary-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(var(--color-dark-rgb), 0.15);
+    font-size: 14px;
+    color: rgba(var(--color-dark-rgb), 0.6);
+}
+
+.summary-breakdown strong {
+    color: var(--color-dark);
+}
+
+/* Gráfico: o container tem de ter altura própria para o Chart.js se ajustar a ele */
+.summary-chart {
+    position: relative;
+    height: 260px;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
+}
+
+/* Listas (objetivos e últimos movimentos): cartão branco com linhas separadoras */
+.summary-list {
+    list-style: none;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
+    padding: 0 20px;
+}
+
+.summary-goal,
+.summary-item {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(var(--color-dark-rgb), 0.15);
+}
+
+.summary-goal:last-child,
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+/* Objetivo: nome e valores por cima, barra por baixo */
+.summary-goal-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 12px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.summary-goal-name {
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+.summary-goal-amounts {
+    color: rgba(var(--color-dark-rgb), 0.6);
+}
+
+/* Movimento: ícone, informação e valor na mesma linha */
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.summary-item-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.summary-item-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.summary-item-description {
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+.summary-item-meta {
+    font-size: 12px;
+    color: rgba(var(--color-dark-rgb), 0.6);
+}
+
+.summary-item-value {
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Links "Ver todos" */
+.summary-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ============================================
+   Tablet e Desktop
+   ============================================ */
+@media (min-width: 768px) {
+    .summary-cards {
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 16px;
+    }
+
+    .summary-card {
+        padding: 20px;
+    }
+
+    .summary-card-main {
+        grid-column: auto;
+    }
+
+    .summary-label {
+        font-size: 14px;
+    }
+
+    .summary-value {
+        font-size: 24px;
+    }
+
+    .summary-card-main .summary-value {
+        font-size: 32px;
+    }
+
+    .summary-chart {
+        height: 320px;
+        padding: 24px;
+    }
+
+    .summary-item-meta {
+        font-size: 14px;
+    }
+
+    .summary-item-value {
+        font-size: 16px;
+    }
+
+    .summary-link {
+        font-size: 16px;
+    }
+}

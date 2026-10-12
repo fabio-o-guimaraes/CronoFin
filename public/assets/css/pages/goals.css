@@ -99,21 +99,6 @@
     font-weight: 500;
 }
 
-/* Barra de progresso */
-.progress {
-    height: 12px;
-    border-radius: 999px;
-    background-color: rgba(var(--color-dark-rgb), 0.1);
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    border-radius: 999px;
-    background-color: var(--color-primary);
-    transition: width 0.3s ease;
-}
-
 .goal-remaining {
     font-size: 14px;
     color: rgba(var(--color-dark-rgb), 0.6);
