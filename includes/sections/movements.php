@@ -81,16 +81,46 @@ if ($monthFilter !== '') {
     $params['month'] = $monthFilter;
 }
 
+/* Paginação */
+$perPage = 20;
+
+$stmt = $pdo->prepare('SELECT COUNT(*) FROM movements m WHERE ' . implode(' AND ', $where));
+$stmt->execute($params);
+$totalMovements = (int) $stmt->fetchColumn();
+
+$totalPages = max(1, (int) ceil($totalMovements / $perPage));
+
+$page = (isset($_GET['page']) && is_string($_GET['page']) && ctype_digit($_GET['page']))
+    ? (int) $_GET['page']
+    : 1;
+$page = min(max($page, 1), $totalPages);
+
+$offset = ($page - 1) * $perPage;
+
 $stmt = $pdo->prepare(
     'SELECT m.id_movements, m.date, m.value, m.description, m.type, m.category_id, m.goal_id,
-        c.name AS category_name, c.icon AS category_icon
+            c.name AS category_name, c.icon AS category_icon
      FROM movements m
      JOIN categories c ON c.id_categories = m.category_id
      WHERE ' . implode(' AND ', $where) . '
-     ORDER BY m.date DESC, m.id_movements DESC'
+     ORDER BY m.date DESC, m.id_movements DESC
+     LIMIT ' . $perPage . ' OFFSET ' . $offset
 );
+
 $stmt->execute($params);
 $movements = $stmt->fetchAll();
+
+/* Filtros atuais (só os que estão preenchidos), para os manter nos links das páginas */
+$filterQuery = array_filter([
+    'search'   => $search,
+    'type'     => $typeFilter,
+    'category' => $categoryFilter !== 0 ? $categoryFilter : '',
+    'month'    => $monthFilter,
+], fn($value) => $value !== '');
+
+/* Endereço de uma página, com a secção e os filtros */
+$pageUrl = fn(int $number) => 'dashboard.php?'
+    . http_build_query(['section' => 'movements'] + $filterQuery + ['page' => $number]);
 
 /* Serve para mostrar o botão "Limpar" e a mensagem certa quando a lista está vazia */
 $hasFilters = $search !== '' || $typeFilter !== '' || $categoryFilter !== 0 || $monthFilter !== '';
@@ -299,5 +329,22 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
                 </li>
             <?php endforeach; ?>
         </ul>
+        <?php if ($totalPages > 1): ?>
+            <nav class="pagination" aria-label="Paginação dos movimentos">
+                <?php if ($page > 1): ?>
+                    <a href="<?= htmlspecialchars($pageUrl($page - 1)) ?>" class="btn btn-secondary">Anterior</a>
+                <?php else: ?>
+                    <span class="btn btn-secondary" aria-disabled="true">Anterior</span>
+                <?php endif; ?>
+
+                <span class="pagination-info">Página <?= $page ?> de <?= $totalPages ?> · <?= $totalMovements ?> movimentos</span>
+
+                <?php if ($page < $totalPages): ?>
+                    <a href="<?= htmlspecialchars($pageUrl($page + 1)) ?>" class="btn btn-secondary">Seguinte</a>
+                <?php else: ?>
+                    <span class="btn btn-secondary" aria-disabled="true">Seguinte</span>
+                <?php endif; ?>
+            </nav>
+        <?php endif; ?>
     <?php endif; ?>
 </section>
