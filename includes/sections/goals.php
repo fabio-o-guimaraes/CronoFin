@@ -149,11 +149,11 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
 
     <!-- Saldo disponível e reservado -->
     <div class="goal-summary">
-        <div class="goal-summary-item">
+        <div class="goal-summary-item card">
             <span class="goal-summary-label">Saldo disponível</span>
             <span class="goal-summary-value"><?= formatMoney($availableBalance) ?></span>
         </div>
-        <div class="goal-summary-item">
+        <div class="goal-summary-item card">
             <span class="goal-summary-label">Reservado em objetivos</span>
             <span class="goal-summary-value"><?= formatMoney($totalReserved) ?></span>
         </div>
@@ -162,7 +162,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
     <?php if ($acquireGoal): ?>
 
         <!-- Formulário: adquirir objetivo -->
-        <form action="actions/goal_acquire.php" method="POST" class="goal-form">
+        <form action="actions/goal_acquire.php" method="POST" class="goal-form card card-padded">
             <h2>Adquirir objetivo</h2>
 
             <input type="hidden" name="id" value="<?= (int) $acquireGoal['id_goals'] ?>">
@@ -213,7 +213,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
     <?php else: ?>
 
         <!-- Formulário: novo objetivo / editar objetivo -->
-        <form action="actions/<?= $editGoal ? 'goal_update' : 'goal_create' ?>.php" method="POST" class="goal-form">
+        <form action="actions/<?= $editGoal ? 'goal_update' : 'goal_create' ?>.php" method="POST" class="goal-form card card-padded">
             <h2><?= $editGoal ? 'Editar objetivo' : 'Novo objetivo' ?></h2>
 
             <?php if ($editGoal): ?>
@@ -262,7 +262,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
                 $target   = (float) $goal['target'];
                 $percent  = $target > 0 ? min(100, (int) round($reserved / $target * 100)) : 0;
                 ?>
-                <li class="goal-card">
+                <li class="goal-card card">
                     <h3 class="goal-name"><?= htmlspecialchars($goal['name']) ?></h3>
 
                     <div class="goal-amounts">
@@ -310,7 +310,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
     <!-- Objetivos adquiridos -->
     <?php if (!empty($acquiredGoals)): ?>
         <h2>Adquiridos</h2>
-        <ul class="goal-done-list">
+        <ul class="card card-list">
             <?php foreach ($acquiredGoals as $goal): ?>
                 <li class="goal-done-item">
                     <span class="goal-done-name"><?= htmlspecialchars($goal['name']) ?></span>

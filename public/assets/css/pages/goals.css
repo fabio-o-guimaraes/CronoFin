@@ -29,10 +29,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    background-color: var(--color-white);
-    border-radius: 8px;
     padding: 16px;
-    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
 }
 
 .goal-summary-label {
@@ -51,10 +48,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background-color: var(--color-white);
-    border-radius: 8px;
     padding: 24px 20px;
-    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
 }
 
 .goal-form h2 {
@@ -81,10 +75,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background-color: var(--color-white);
-    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
 }
 
 .goal-name {
@@ -152,13 +143,6 @@
 }
 
 /* Objetivos adquiridos: lista esbatida */
-.goal-done-list {
-    list-style: none;
-    background-color: var(--color-white);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
-    padding: 0 20px;
-}
 
 .goal-done-item {
     display: flex;
