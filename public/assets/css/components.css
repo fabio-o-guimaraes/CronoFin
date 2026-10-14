@@ -174,3 +174,29 @@
     background-color: var(--color-primary);
     transition: width 0.3s ease;
 }
+
+/* ============================================
+   Cartões
+   ============================================ */
+.card {
+    background-color: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
+}
+
+/* Cartão com espaço interior (formulários) */
+.card-padded {
+    padding: 24px 20px;
+}
+
+/* Cartão que contém uma lista com linhas separadoras */
+.card-list {
+    list-style: none;
+    padding: 0 20px;
+}
+
+@media (min-width: 768px) {
+    .card-padded {
+        padding: 32px;
+    }
+}

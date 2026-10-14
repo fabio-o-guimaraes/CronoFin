@@ -42,7 +42,7 @@ $success = isset($_GET['success']) && $_GET['success'] === 'updated';
 
 ?>
 
-<section class="profile-section">
+<section class="profile-section card card-padded">
     <h1>Perfil</h1>
 
     <?php if ($errorMessage): ?>
