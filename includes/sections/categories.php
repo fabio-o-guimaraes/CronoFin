@@ -88,7 +88,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
     <?php endif; ?>
 
     <!-- Formulário: criar ou editar -->
-    <form action="actions/<?= $editCategory ? 'category_update' : 'category_create' ?>.php" method="POST" class="category-form">
+    <form action="actions/<?= $editCategory ? 'category_update' : 'category_create' ?>.php" method="POST" class="category-form card card-padded">
         <h2><?= $editCategory ? 'Editar categoria' : 'Nova categoria' ?></h2>
 
         <?php if ($editCategory): ?>
@@ -127,7 +127,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
     <?php if (empty($activeCategories)): ?>
         <p>Ainda não criaste nenhuma categoria.</p>
     <?php else: ?>
-        <ul class="category-list">
+        <ul class="card card-list">
             <?php foreach ($activeCategories as $category): ?>
                 <li class="category-item">
                     <span class="category-icon"><?= htmlspecialchars($category['icon'] ?? DEFAULT_CATEGORY_ICON) ?></span>
@@ -151,7 +151,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
     <!-- Categorias do utilizador: inativas -->
     <?php if (!empty($inactiveCategories)): ?>
         <h2>Categorias inativas</h2>
-        <ul class="category-list">
+        <ul class="card card-list">
             <?php foreach ($inactiveCategories as $category): ?>
                 <li class="category-item category-item-inactive">
                     <span class="category-icon"><?= htmlspecialchars($category['icon'] ?? DEFAULT_CATEGORY_ICON) ?></span>
@@ -170,7 +170,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
 
     <!-- Categorias predefinidas -->
     <h2>Categorias predefinidas</h2>
-    <ul class="category-list">
+    <ul class="card card-list">
         <?php foreach ($defaultCategories as $category): ?>
             <li class="category-item">
                 <span class="category-icon"><?= htmlspecialchars($category['icon'] ?? DEFAULT_CATEGORY_ICON) ?></span>

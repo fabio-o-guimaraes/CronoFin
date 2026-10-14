@@ -22,10 +22,6 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background-color: var(--color-white);
-    border-radius: 8px;
-    padding: 24px 20px;
-    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
 }
 
 .category-form h2 {
@@ -88,15 +84,6 @@
     outline-offset: 2px;
 }
 
-/* Listas de categorias: cartão branco */
-.category-list {
-    list-style: none;
-    background-color: var(--color-white);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
-    padding: 0 20px;
-}
-
 /* Cada categoria */
 .category-item {
     display: flex;
@@ -146,9 +133,6 @@
    Tablet e Desktop
    ============================================ */
 @media (min-width: 768px) {
-    .category-form {
-        padding: 32px;
-    }
 
     .category-item {
         flex-wrap: nowrap;
