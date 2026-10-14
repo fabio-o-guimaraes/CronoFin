@@ -178,7 +178,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
     <?php endif; ?>
 
     <!-- Formulário: novo movimento / editar movimento -->
-    <form action="actions/<?= $editMovement ? 'movement_update' : 'movement_create' ?>.php" method="POST" class="movement-form">
+    <form action="actions/<?= $editMovement ? 'movement_update' : 'movement_create' ?>.php" method="POST" class="movement-form card card-padded">
         <h2><?= $editMovement ? 'Editar movimento' : 'Novo movimento' ?></h2>
 
         <?php if ($editMovement): ?>
@@ -239,7 +239,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
     </form>
 
     <!-- Filtros -->
-    <form action="dashboard.php" method="GET" class="movement-filters">
+    <form action="dashboard.php" method="GET" class="movement-filters card card-padded">
         <input type="hidden" name="section" value="movements">
 
         <h2>Pesquisar e filtrar</h2>
@@ -293,7 +293,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
                 : 'Ainda não registaste nenhum movimento.' ?>
         </p>
     <?php else: ?>
-        <ul class="movement-list">
+        <ul class="card card-list">
             <?php foreach ($movements as $movement): ?>
                 <li class="movement-item">
                     <span class="movement-icon"><?= htmlspecialchars($movement['category_icon'] ?? DEFAULT_CATEGORY_ICON) ?></span>

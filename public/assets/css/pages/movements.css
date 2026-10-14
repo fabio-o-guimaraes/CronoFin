@@ -16,14 +16,7 @@
     margin: 32px 0 12px;
 }
 
-/* Formulário e filtros: cartões brancos */
-.movement-form,
-.movement-filters {
-    background-color: var(--color-white);
-    border-radius: 8px;
-    padding: 24px 20px;
-    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
-}
+/* Formulário e filtros */
 
 .movement-form {
     display: flex;
@@ -122,15 +115,6 @@
 
 .movement-filters .form-actions {
     grid-column: 1 / -1;
-}
-
-/* Lista de movimentos: cartão branco */
-.movement-list {
-    list-style: none;
-    background-color: var(--color-white);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
-    padding: 0 20px;
 }
 
 /* Cada movimento: uma linha com separador */
@@ -237,10 +221,6 @@
    Tablet e Desktop
    ============================================ */
 @media (min-width: 768px) {
-    .movement-form,
-    .movement-filters {
-        padding: 32px;
-    }
 
     .movement-filters {
         grid-template-columns: 1fr 1fr;
