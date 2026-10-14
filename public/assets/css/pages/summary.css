@@ -28,10 +28,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    background-color: var(--color-white);
-    border-radius: 8px;
     padding: 16px;
-    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
 }
 
 .summary-card-main {
@@ -83,20 +80,10 @@
 .summary-chart {
     position: relative;
     height: 260px;
-    background-color: var(--color-white);
-    border-radius: 8px;
     padding: 16px;
-    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
 }
 
-/* Listas (objetivos e últimos movimentos): cartão branco com linhas separadoras */
-.summary-list {
-    list-style: none;
-    background-color: var(--color-white);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(var(--color-dark-rgb), 0.1);
-    padding: 0 20px;
-}
+/* Listas (objetivos e últimos movimentos) */
 
 .summary-goal,
 .summary-item {

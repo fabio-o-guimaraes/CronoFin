@@ -88,7 +88,7 @@ $recentMovements = $stmt->fetchAll();
 
     <!-- Indicadores -->
     <div class="summary-cards">
-        <div class="summary-card summary-card-main">
+        <div class="summary-card summary-card-main card">
             <span class="summary-label">Saldo total</span>
             <span class="summary-value <?= $totalBalance < 0 ? 'summary-value-expense' : '' ?>">
                 <?= formatMoney($totalBalance) ?>
@@ -99,12 +99,12 @@ $recentMovements = $stmt->fetchAll();
             </div>
         </div>
 
-        <div class="summary-card">
+        <div class="summary-card card">
             <span class="summary-label">Receitas do mês</span>
             <span class="summary-value summary-value-income"><?= formatMoney($monthIncome) ?></span>
         </div>
 
-        <div class="summary-card">
+        <div class="summary-card card">
             <span class="summary-label">Despesas do mês</span>
             <span class="summary-value summary-value-expense"><?= formatMoney($monthExpenses) ?></span>
         </div>
@@ -112,7 +112,7 @@ $recentMovements = $stmt->fetchAll();
 
     <!-- Gráfico -->
     <h2>Receitas e despesas</h2>
-    <div class="summary-chart">
+    <div class="summary-chart card">
         <canvas id="chart-income-expenses" role="img" aria-label="Gráfico de receitas e despesas dos últimos 6 meses"></canvas>
     </div>
 
@@ -125,7 +125,7 @@ $recentMovements = $stmt->fetchAll();
             <a href="dashboard.php?section=goals" class="link-on-light">Cria o primeiro</a>.
         </p>
     <?php else: ?>
-        <ul class="summary-list">
+        <ul class="card card-list">
             <?php foreach ($summaryGoals as $goal): ?>
                 <?php
                 $reserved = (float) $goal['reserved'];
@@ -157,7 +157,7 @@ $recentMovements = $stmt->fetchAll();
             <a href="dashboard.php?section=movements" class="link-on-light">Regista o primeiro</a>.
         </p>
     <?php else: ?>
-        <ul class="summary-list">
+        <ul class="card card-list">
             <?php foreach ($recentMovements as $movement): ?>
                 <li class="summary-item">
                     <span class="summary-item-icon"><?= htmlspecialchars($movement['category_icon'] ?? DEFAULT_CATEGORY_ICON) ?></span>
