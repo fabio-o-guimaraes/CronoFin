@@ -76,7 +76,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
 
 ?>
 
-<section class="categories-section">
+<section class="page-section">
     <h1>Categorias</h1>
 
     <?php if ($errorMessage): ?>

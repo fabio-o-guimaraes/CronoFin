@@ -136,7 +136,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
 
 ?>
 
-<section class="goals-section">
+<section class="page-section">
     <h1>Objetivos</h1>
 
     <?php if ($errorMessage): ?>

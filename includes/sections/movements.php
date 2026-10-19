@@ -166,7 +166,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
 
 ?>
 
-<section class="movements-section">
+<section class="page-section">
     <h1>Movimentos</h1>
 
     <?php if ($errorMessage): ?>

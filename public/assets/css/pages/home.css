@@ -25,7 +25,7 @@
                  Fica por cima da imagem por vir depois dela no HTML (sem z-index definido). */
     position: absolute;
     inset: 0;
-    background-color: rgba(38, 50, 56, 0.4); /* camada escura semi-transparente, para o texto branco se destacar */
+    background-color: rgba(38, 50, 56, 0.6); /* camada escura semi-transparente, para o texto branco se destacar */
 }
 
 .hero-content {

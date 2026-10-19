@@ -24,7 +24,7 @@
 
         <!-- Hero section -->
         <section class="hero">
-            <img src="assets/img/porquinho.jpg" alt="Exemplo dashboard da aplicação" class="hero-bg-img"> <!-- alterar para print do dashboard -->
+            <img src="assets/img/grud.jpg" alt="Exemplo dashboard da aplicação" class="hero-bg-img"> <!-- alterar para print do dashboard -->
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1>Descobre para onde vai o teu dinheiro com o CronoFin</h1>

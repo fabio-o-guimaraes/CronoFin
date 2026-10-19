@@ -83,7 +83,7 @@ $recentMovements = $stmt->fetchAll();
 
 ?>
 
-<section class="summary-section">
+<section class="page-section">
     <h1>Resumo</h1>
 
     <!-- Indicadores -->
