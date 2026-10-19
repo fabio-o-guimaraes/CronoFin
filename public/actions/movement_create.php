@@ -4,6 +4,8 @@ startSecureSession();
 
 require_once __DIR__ . '/../../config/database.php';
 
+require_once __DIR__ . '/../../includes/format.php';
+
 /* Redireciona sempre para a secção dos movimentos, com uma query extra (erro ou sucesso) */
 function redirectToMovements(string $query): never
 {
@@ -45,20 +47,14 @@ if (!in_array($type, ['income', 'expense'], true)) {
     redirectToMovements('error=type');
 }
 
-/* Validar valor: aceita "12,50" ou "12.50", sem separador de milhares */
-$normalizedValue = str_replace(',', '.', str_replace([' ', "\u{00A0}"], '', $valueInput));
+/* Validar valor */
+$value = parseAmount($valueInput);
 
-if (!preg_match('/^\d+(\.\d{1,2})?$/', $normalizedValue)) {
+if ($value === null || $value <= 0) {
     redirectToMovements('error=value');
 }
 
-$value = (float) $normalizedValue;
-
-if ($value <= 0) {
-    redirectToMovements('error=value');
-}
-
-if ($value > 99999999.99) {
+if ($value > MAX_AMOUNT) {
     redirectToMovements('error=toolarge');
 }
 
