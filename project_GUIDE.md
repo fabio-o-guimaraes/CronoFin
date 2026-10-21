@@ -8,9 +8,9 @@
 
 - **Tema:** Gestor de finanças pessoais
 - **Nome:** CronoFin
-- **Finalidade:** Projeto de desenvolvimento pessoal
+- **Finalidade:** Projeto pessoal de desenvolvimento profissional/técnico
 - **Objetivo:** Criar um projeto que permita, de forma simples, ajudar o utilizador a desenvolver hábitos financeiros saudáveis.
-- **Tecnologias:** HTML, CSS, Bootstrap, JavaScript, PHP, MySQL
+- **Tecnologias:** HTML, CSS, JavaScript, PHP, MySQL
 
 ---
 
