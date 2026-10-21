@@ -78,7 +78,7 @@ $categoryId = (int) $categoryInput;
 
 $stmt = $pdo->prepare(
     'SELECT id_categories FROM categories
-     WHERE id_categories = :id AND status = \'active\' AND (user_id IS NULL OR user_id = :user_id)'
+     WHERE id_categories = :id AND status = \'active\' AND user_id = :user_id'
 );
 $stmt->execute(['id' => $categoryId, 'user_id' => $userId]);
 

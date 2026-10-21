@@ -52,7 +52,7 @@ if (!in_array($icon, getCategoryIcons(), true)) {
 /* Nome já usado numa predefinida ou numa categoria do utilizador */
 $stmt = $pdo->prepare(
     'SELECT id_categories FROM categories
-     WHERE name = :name AND (user_id IS NULL OR user_id = :user_id)'
+     WHERE name = :name AND user_id = :user_id'
 );
 $stmt->execute(['name' => $name, 'user_id' => $userId]);
 

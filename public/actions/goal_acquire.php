@@ -106,7 +106,7 @@ if ($newCategory !== '') {
 
     $stmt = $pdo->prepare(
         'SELECT id_categories FROM categories
-         WHERE name = :name AND (user_id IS NULL OR user_id = :user_id)'
+         WHERE name = :name AND user_id = :user_id'
     );
     $stmt->execute(['name' => $newCategory, 'user_id' => $userId]);
 
@@ -122,7 +122,7 @@ if ($newCategory !== '') {
 
     $stmt = $pdo->prepare(
         'SELECT id_categories FROM categories
-         WHERE id_categories = :id AND status = \'active\' AND (user_id IS NULL OR user_id = :user_id)'
+         WHERE id_categories = :id AND status = \'active\' AND user_id = :user_id'
     );
     $stmt->execute(['id' => $categoryId, 'user_id' => $userId]);
 

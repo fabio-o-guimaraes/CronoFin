@@ -71,7 +71,7 @@ if (!in_array($icon, getCategoryIcons(), true)) {
 /* Nome já usado por OUTRA categoria */
 $stmt = $pdo->prepare(
     'SELECT id_categories FROM categories
-     WHERE name = :name AND (user_id IS NULL OR user_id = :user_id) AND id_categories != :id'
+     WHERE name = :name AND user_id = :user_id AND id_categories != :id'
 );
 $stmt->execute(['name' => $name, 'user_id' => $userId, 'id' => $id]);
 

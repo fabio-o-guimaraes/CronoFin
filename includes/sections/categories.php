@@ -4,12 +4,6 @@ require_once __DIR__ . '/../category_icons.php';
 
 $userId = (int) $_SESSION['user_id'];
 
-/* Categorias predefinidas */
-$stmt = $pdo->query(
-    'SELECT id_categories, name, icon FROM categories WHERE user_id IS NULL ORDER BY name'
-);
-$defaultCategories = $stmt->fetchAll();
-
 /* Categorias do utilizador, com o número de movimentos de cada uma */
 $stmt = $pdo->prepare(
     'SELECT c.id_categories, c.name, c.icon, c.status, COUNT(m.id_movements) AS movements_count
@@ -125,7 +119,7 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
     <h2>As minhas categorias</h2>
 
     <?php if (empty($activeCategories)): ?>
-        <p>Ainda não criaste nenhuma categoria.</p>
+        <p>Ainda não criaste nenhuma categoria. Usa o formulário acima para criar a primeira.</p>
     <?php else: ?>
         <ul class="card card-list">
             <?php foreach ($activeCategories as $category): ?>
@@ -167,15 +161,4 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
-
-    <!-- Categorias predefinidas -->
-    <h2>Categorias predefinidas</h2>
-    <ul class="card card-list">
-        <?php foreach ($defaultCategories as $category): ?>
-            <li class="category-item">
-                <span class="category-icon"><?= htmlspecialchars($category['icon'] ?? DEFAULT_CATEGORY_ICON) ?></span>
-                <span class="category-name"><?= htmlspecialchars($category['name']) ?></span>
-            </li>
-        <?php endforeach; ?>
-    </ul>
 </section>

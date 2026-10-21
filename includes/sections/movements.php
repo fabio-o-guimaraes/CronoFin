@@ -9,7 +9,7 @@ $userId = (int) $_SESSION['user_id'];
 $stmt = $pdo->prepare(
     'SELECT id_categories, name, icon, status
      FROM categories
-     WHERE user_id IS NULL OR user_id = :id
+     WHERE user_id = :id
      ORDER BY name'
 );
 $stmt->execute(['id' => $userId]);
@@ -177,66 +177,82 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
         <div class="alert alert-success"><?= htmlspecialchars($successMessage) ?></div>
     <?php endif; ?>
 
-    <!-- Formulário: novo movimento / editar movimento -->
-    <form action="actions/<?= $editMovement ? 'movement_update' : 'movement_create' ?>.php" method="POST" class="movement-form card card-padded">
-        <h2><?= $editMovement ? 'Editar movimento' : 'Novo movimento' ?></h2>
 
-        <?php if ($editMovement): ?>
-            <input type="hidden" name="id" value="<?= (int) $editMovement['id_movements'] ?>">
-        <?php endif; ?>
+    <?php if (empty($formCategories)): ?>
 
-        <fieldset class="form-group type-picker">
-
-            <legend>Tipo</legend>
-
-            <label class="type-option">
-                <input type="radio" name="type" value="expense" <?= $typeValue === 'expense' ? 'checked' : '' ?>>
-                <span>Despesa</span>
-            </label>
-
-            <label class="type-option">
-                <input type="radio" name="type" value="income" <?= $typeValue === 'income' ? 'checked' : '' ?>>
-                <span>Receita</span>
-            </label>
-        </fieldset>
-
-        <div class="form-group">
-            <label for="value">Valor (€)</label>
-            <input type="text" id="value" name="value" inputmode="decimal" placeholder="0,00" maxlength="12" required value="<?= htmlspecialchars($valueValue) ?>">
+        <div class="movement-form card card-padded">
+            <h2>Novo movimento</h2>
+            <p>
+                Antes de registares movimentos, precisas de ter pelo menos uma categoria.
+                <a href="dashboard.php?section=categories" class="link-on-light">
+                    Criar categoria
+                </a>
+            </p>
         </div>
 
-        <div class="form-group">
-            <label for="date">Data</label>
-            <input type="date" id="date" name="date" max="<?= date('Y-m-d') ?>" required value="<?= htmlspecialchars($dateValue) ?>">
-        </div>
+    <?php else: ?>
 
-        <div class="form-group">
-            <label for="category">Categoria</label>
-            <select id="category" name="category" required>
-                <option value="">Escolhe uma categoria</option>
-                <?php foreach ($formCategories as $category): ?>
-                    <option value="<?= (int) $category['id_categories'] ?>" <?= (int) $category['id_categories'] === $categoryValue ? 'selected' : '' ?>>
-                        <?= htmlspecialchars(($category['icon'] ?? DEFAULT_CATEGORY_ICON) . ' ' . $category['name']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="description">Descrição (opcional)</label>
-            <input type="text" id="description" name="description" maxlength="100" value="<?= htmlspecialchars($descriptionValue) ?>">
-        </div>
-
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">
-                <?= $editMovement ? 'Guardar alterações' : 'Registar movimento' ?>
-            </button>
+        <!-- Formulário: novo movimento / editar movimento -->
+        <form action="actions/<?= $editMovement ? 'movement_update' : 'movement_create' ?>.php" method="POST" class="movement-form card card-padded">
+            <h2><?= $editMovement ? 'Editar movimento' : 'Novo movimento' ?></h2>
 
             <?php if ($editMovement): ?>
-                <a href="dashboard.php?section=movements" class="btn btn-secondary">Cancelar</a>
+                <input type="hidden" name="id" value="<?= (int) $editMovement['id_movements'] ?>">
             <?php endif; ?>
-        </div>
-    </form>
+
+            <fieldset class="form-group type-picker">
+
+                <legend>Tipo</legend>
+
+                <label class="type-option">
+                    <input type="radio" name="type" value="expense" <?= $typeValue === 'expense' ? 'checked' : '' ?>>
+                    <span>Despesa</span>
+                </label>
+
+                <label class="type-option">
+                    <input type="radio" name="type" value="income" <?= $typeValue === 'income' ? 'checked' : '' ?>>
+                    <span>Receita</span>
+                </label>
+            </fieldset>
+
+            <div class="form-group">
+                <label for="value">Valor (€)</label>
+                <input type="text" id="value" name="value" inputmode="decimal" placeholder="0,00" maxlength="12" required value="<?= htmlspecialchars($valueValue) ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="date">Data</label>
+                <input type="date" id="date" name="date" max="<?= date('Y-m-d') ?>" required value="<?= htmlspecialchars($dateValue) ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="category">Categoria</label>
+                <select id="category" name="category" required>
+                    <option value="">Escolhe uma categoria</option>
+                    <?php foreach ($formCategories as $category): ?>
+                        <option value="<?= (int) $category['id_categories'] ?>" <?= (int) $category['id_categories'] === $categoryValue ? 'selected' : '' ?>>
+                            <?= htmlspecialchars(($category['icon'] ?? DEFAULT_CATEGORY_ICON) . ' ' . $category['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descrição (opcional)</label>
+                <input type="text" id="description" name="description" maxlength="100" value="<?= htmlspecialchars($descriptionValue) ?>">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <?= $editMovement ? 'Guardar alterações' : 'Registar movimento' ?>
+                </button>
+
+                <?php if ($editMovement): ?>
+                    <a href="dashboard.php?section=movements" class="btn btn-secondary">Cancelar</a>
+                <?php endif; ?>
+            </div>
+        </form>
+    <?php endif; ?>
 
     <!-- Filtros -->
     <form action="dashboard.php" method="GET" class="movement-filters card card-padded">

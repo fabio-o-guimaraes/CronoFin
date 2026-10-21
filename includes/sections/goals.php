@@ -56,7 +56,7 @@ if ($acquireGoal !== null) {
     $stmt = $pdo->prepare(
         'SELECT id_categories, name, icon
          FROM categories
-         WHERE status = \'active\' AND (user_id IS NULL OR user_id = :user_id)
+         WHERE status = \'active\' AND user_id = :user_id
          ORDER BY name'
     );
     $stmt->execute(['user_id' => $userId]);
