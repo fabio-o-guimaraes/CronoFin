@@ -78,7 +78,9 @@ $acquireDescription = $acquireData['description']  ?? ($acquireGoal['name'] ?? '
 
 /* Objetivos adquiridos, com a despesa que foi registada ao adquirir */
 $stmt = $pdo->prepare(
-    'SELECT g.id_goals, g.name, m.value AS spent, m.date AS spent_date
+    'SELECT g.id_goals, g.name,
+            m.id_movements AS movement_id, m.value AS spent, m.date AS spent_date,
+            m.category_id, m.description AS spent_description
      FROM goals g
      LEFT JOIN movements m ON m.goal_id = g.id_goals
      WHERE g.user_id = :user_id AND g.status = \'acquired\'
@@ -93,6 +95,44 @@ unset($_SESSION['goal_form_data']);
 
 $nameValue   = $formData['name']   ?? ($editGoal['name'] ?? '');
 $targetValue = $formData['target'] ?? ($editGoal ? number_format((float) $editGoal['target'], 2, ',', '') : '');
+
+/* Modo de edição de um objetivo adquirido: ?editacquired=ID (nunca ao mesmo tempo que os outros modos) */
+$editAcquiredId = (isset($_GET['editacquired']) && is_string($_GET['editacquired']) && ctype_digit($_GET['editacquired']))
+    ? (int) $_GET['editacquired']
+    : 0;
+
+$editAcquired = null;
+if ($editGoal === null && $acquireGoal === null) {
+    foreach ($acquiredGoals as $candidate) {
+        if ((int) $candidate['id_goals'] === $editAcquiredId && $candidate['movement_id'] !== null) {
+            $editAcquired = $candidate;
+            break;
+        }
+    }
+}
+
+/* Categorias da dropdown: as ativas e, se estiver inativa, a que a despesa já tem */
+$editAcquiredCategories = [];
+if ($editAcquired !== null) {
+    $stmt = $pdo->prepare(
+        'SELECT id_categories, name, icon
+         FROM categories
+         WHERE user_id = :user_id AND (status = \'active\' OR id_categories = :current)
+         ORDER BY name'
+    );
+    $stmt->execute(['user_id' => $userId, 'current' => $editAcquired['category_id']]);
+    $editAcquiredCategories = $stmt->fetchAll();
+}
+
+/* Se houve erro no envio anterior, repõe o que o utilizador tinha escrito */
+$acquiredData = $_SESSION['goal_acquired_form_data'] ?? [];
+unset($_SESSION['goal_acquired_form_data']);
+
+$acqNameValue        = $acquiredData['name']        ?? ($editAcquired['name'] ?? '');
+$acqSpentValue       = $acquiredData['spent']       ?? ($editAcquired ? number_format((float) $editAcquired['spent'], 2, ',', '') : '');
+$acqDateValue        = $acquiredData['date']        ?? ($editAcquired['spent_date'] ?? date('Y-m-d'));
+$acqCategoryValue    = (int) ($acquiredData['category'] ?? ($editAcquired['category_id'] ?? 0));
+$acqDescriptionValue = $acquiredData['description'] ?? ($editAcquired['spent_description'] ?? '');
 
 /* Mensagens de erro e de sucesso */
 $errorMessages = [
@@ -112,6 +152,7 @@ $errorMessages = [
     'catexists'  => 'Já existe uma categoria com esse nome. Escolhe-a na lista.',
     'catlength'  => 'O nome da categoria não pode ter mais de 100 caracteres.',
     'desclength' => 'A descrição não pode ter mais de 100 caracteres.',
+    'noreserve' => 'Não tens saldo disponível suficiente para voltar a reservar o valor deste objetivo.',
 ];
 
 $successMessages = [
@@ -121,6 +162,8 @@ $successMessages = [
     'updated'     => 'Objetivo atualizado com sucesso.',
     'acquired'    => 'Objetivo marcado como adquirido.',
     'deleted'     => 'Objetivo eliminado com sucesso.',
+    'acquiredupdated' => 'Aquisição atualizada com sucesso.',
+    'reopened'        => 'O objetivo voltou a ativo.',
 ];
 
 $errorMessage = null;
@@ -210,9 +253,59 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
             </div>
         </form>
 
+    <?php elseif ($editAcquired): ?>
+
+        <!-- Formulário: editar objetivo adquirido -->
+        <form action="actions/goal_acquired_update.php" method="POST" class="goal-form card card-padded">
+            <h2>Editar objetivo adquirido</h2>
+
+            <input type="hidden" name="id" value="<?= (int) $editAcquired['id_goals'] ?>">
+
+            <p class="goal-form-hint">
+                Aqui alteras o nome do objetivo e os dados da despesa registada ao adquiri-lo.
+            </p>
+
+            <div class="form-group">
+                <label for="acq-name">Nome</label>
+                <input type="text" id="acq-name" name="name" maxlength="100" required value="<?= htmlspecialchars($acqNameValue) ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="acq-spent">Valor gasto (€)</label>
+                <input type="text" id="acq-spent" name="spent" inputmode="decimal" placeholder="0,00" maxlength="12" required value="<?= htmlspecialchars($acqSpentValue) ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="acq-date">Data</label>
+                <input type="date" id="acq-date" name="date" max="<?= date('Y-m-d') ?>" required value="<?= htmlspecialchars($acqDateValue) ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="acq-category">Categoria</label>
+                <select id="acq-category" name="category" required>
+                    <option value="">Escolhe uma categoria</option>
+                    <?php foreach ($editAcquiredCategories as $category): ?>
+                        <option value="<?= (int) $category['id_categories'] ?>" <?= (int) $category['id_categories'] === $acqCategoryValue ? 'selected' : '' ?>>
+                            <?= htmlspecialchars(($category['icon'] ?? DEFAULT_CATEGORY_ICON) . ' ' . $category['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="acq-description">Descrição</label>
+                <input type="text" id="acq-description" name="description" maxlength="100" value="<?= htmlspecialchars($acqDescriptionValue) ?>">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Guardar alterações</button>
+                <a href="dashboard.php?section=goals" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+
     <?php else: ?>
 
-        <!-- Formulário: novo objetivo / editar objetivo -->
+        <!-- Formulário: novo objetivo -->
         <form action="actions/<?= $editGoal ? 'goal_update' : 'goal_create' ?>.php" method="POST" class="goal-form card card-padded">
             <h2><?= $editGoal ? 'Editar objetivo' : 'Novo objetivo' ?></h2>
 
@@ -315,6 +408,16 @@ if (isset($_GET['success']) && is_string($_GET['success'])) {
                 <li class="goal-done-item">
                     <span class="goal-done-name"><?= htmlspecialchars($goal['name']) ?></span>
                     <?php if ($goal['spent'] !== null): ?>
+                        <div class="goal-done-actions">
+                            <?php if ($goal['movement_id'] !== null): ?>
+                                <a href="dashboard.php?section=goals&editacquired=<?= (int) $goal['id_goals'] ?>" class="btn btn-secondary">Editar</a>
+                            <?php endif; ?>
+
+                            <form action="actions/goal_reopen.php" method="POST" onsubmit="return confirm('Voltar a ativar este objetivo? A despesa registada ao adquirir será apagada.');">
+                                <input type="hidden" name="id" value="<?= (int) $goal['id_goals'] ?>">
+                                <button type="submit" class="btn btn-secondary">Voltar a ativo</button>
+                            </form>
+                        </div>
                         <span class="goal-done-info">
                             <?= formatMoney($goal['spent']) ?> · <?= formatDate($goal['spent_date']) ?>
                         </span>
