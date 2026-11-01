@@ -90,39 +90,36 @@ Objetivo: convencer o utilizador a experimentar a aplicação, comunicando de fo
 
 Restrita a utilizadores com sessão iniciada.
 
-**Dashboard**
+**Dashboard/Resumo**
 
-- Resumo com saldo atual, receitas, despesas e poupança;
+- Resumo com saldo atual, receitas, despesas e valor reservado;
 - Gráfico simples de receitas vs. despesas;
+- Objetivos;
 - Últimos movimentos.
 
 **Movimentos**
 
-- Pesquisa;
-- Tabela com data, categoria, descrição, valor e tipo;
-- Adicionar movimento através de formulário.
+- Adicionar movimento através de formulário;
+- Pesquisa de movimentos;
+- Todos os movimentos.
 
 **Categorias**
 
-- Listar;
 - Adicionar;
 - Editar;
 - Eliminar/desativar;
-- Categorias iniciais: alimentação, transporte, casa, lazer e saúde.
 
 **Objetivos**
 
-- Criar novo objetivo;
-- Definir nome e valor;
+- Criar novo objetivo (nome e valor/meta);
 - Adicionar descrição opcional;
 - Visualizar progresso através de uma barra de percentagem;
-- Adicionar valores poupados ao objetivo.
+- Adicionar valores aos objetivos.
 
 **Perfil**
 
 - Dados pessoais;
 - Alteração de password;
-- Preferências;
 - Nome, email e fotografia.
 
 **Logout**
@@ -136,7 +133,6 @@ Restrita a utilizadores com sessão iniciada.
 ### Versão Mobile
 
 ![Wireframe da homepage - versão mobile](docs/design/wireframes/Wireframe_home_page_mobile.jpg)<br>
-![Wireframe do dashboard - versão mobile](docs/design/wireframes/Dashboard_mobile_version.jpg)
 
 ### Versão Desktop
 
@@ -147,7 +143,7 @@ Foram desenvolvidos wireframes de baixa fidelidade para as duas principais área
 
 A homepage foi concebida para apresentar a aplicação ao utilizador, destacar os seus principais benefícios e incentivá-lo a criar uma conta para começar a utilizar. Na versão mobile, a principal diferença relativamente à versão desktop prende-se com a reorganização dos elementos numa disposição vertical, proporcionando uma melhor experiência de utilização em ecrãs de menor dimensão.
 
-O dashboard foi concebido com uma estrutura semelhante à utilizada em aplicações como o Gmail, recorrendo a um menu lateral para a navegação entre as diferentes funcionalidades. Na versão desktop, este menu permanece sempre visível, enquanto na versão mobile é substituído por um botão do tipo "hambúrguer", permitindo aproveitar melhor o espaço disponível no ecrã.
+O dashboard foi concebido com uma estrutura semelhante à utilizada em aplicações como o Gmail, recorrendo a um menu lateral para a navegação entre as diferentes funcionalidades. Na versão desktop, este menu permanece sempre visível, enquanto na versão mobile é substituído por um manu com scroll lateral na parte inferior do ecrâ, permitindo aproveitar melhor o espaço disponível.
 
 ---
 
@@ -187,64 +183,88 @@ Estas definições permitem manter uma identidade visual consistente em todas as
 
 ```
 CronoFin/
-├── .gitignore
-├── LICENSE
-├── README.md                            # Apresentação do projeto
-├── project_GUIDE.md                     # Documento teórico do projeto (requisitos, modelo de dados, regras de negócio)
-├── docs/
-│   └── design/                          # Documentação
-│       ├── logos/
-│       ├── moodboard_&_styleguide/
-│       ├── sitemap_&_er_database/
-│       └── wireframes/
+├── README.md                              # Apresentação do projeto
+├── project_GUIDE.md                       # Documento teórico do projeto (requisitos, modelo de dados, regras de negócio)
+├── LICENSE                                # Licença
+├── .gitignore                             # Indicações para o Git
+├── database/
+│   └── schema.sql                         # Estrutura da base de dados
+│
 ├── config/
-│   └── database.php                     # Ligação à base de dados (PDO)
-├── includes/
-    ├── session.php
-│   ├── auth.php                         # Verifica se o utilizador tem sessão ativa (proteção de páginas privadas)
-│   ├── header.php
-│   └── footer.php
-├── models/                              # Funções que falam com as respectivas tabelas
-│   ├── User.php                         # Tabela `users`
-│   ├── Movement.php                     # Tabela `movements`
-│   ├── Category.php                     # Tabela `categories`
-│   └── Goal.php                         # Tabelas `goals` e `contributions`
-├── public/                              # Root
-│   ├── index.php                        # Página inicial/pública
-│   ├── login.php                        # Página de login
-│   ├── register.php                     # Página de registo
-│   ├── dashboard.php                    # Página principal após login (resumo/visão geral)
-│   ├── movements.php                    # Página com listagem e criação de movimentos (receitas/despesas)
-│   ├── goals.php                        # Página com listagem e gestão de objetivos de poupança
-│   ├── categories.php                   # Página de gestão das categorias do utilizador
-│   ├── profile.php                      # Página com dados e foto do utilizador
-│   ├── logout.php
-│   └── assets/
-│       ├── css/
-│       │   ├── base.css                 # Reset, cores globais, tipografia
-│       │   ├── layout.css               # Header, footer, estrutura geral das páginas
-│       │   ├── components.css           # Botões, cards, formulários (elementos reutilizáveis)
-│       │   └── pages/                   # Estilos específicos de cada página
-│       │       ├── auth.css             # Eestilos do login/registo
-│       │       ├── dashboard.css
-│       │       ├── movements.css
-│       │       ├── goals.css
-│       │       ├── categories.css
-│       │       └── profile.css
-│       ├── js/
-│       │   ├── main.js                  # Lógica comum a todas as páginas
-│       │   └── pages/                   # Lógica específica de cada página
-│       │       ├── dashboard.js
-│       │       ├── movements.js
-│       │       ├── goals.js
-│       │       └── profile.js
-│       ├── img/                         # Imagens fixas do projeto
-│       └── uploads/                     # Ficheiros carregados pelos utilizadores
-│           ├── profiles/                # Fotos de perfil
-│           └── categories/              # Ícones de categorias
-└── database/
-    └── schema.sql                       # Estrutura da base de dados
-
+│   └── database.php                       # Ligação à base de dados `cronofin` com PDO (define $pdo)
+│
+├── docs/
+│   └── design/
+│       ├── logos/                         # Versões do logótipo (desenvolvido no Figma)
+│       ├── moodboard_&_styleguide/        # Moodboard e guia de estilo (cores, tipografia, botões)
+│       ├── sitemap_&_er_database/         # Mapa do site e diagrama entidade-relação da base de dados
+│       └── wireframes/                    # Wireframes das páginas (mobile e desktop)
+│
+├── includes/                              # Código partilhado, só incluído por outros ficheiros PHP
+│   ├── auth.php                           # Protege a área privada: sem sessão válida, redireciona para o login
+│   ├── category_icons.php                 # Lista de emojis permitidos nas categorias
+│   ├── finance.php                        # getTotalBalance(), getTotalReserved() e getAvailableBalance()
+│   ├── fonts.php                          # Ligações à fonte Montserrat, incluídas no <head> de todas as páginas
+│   ├── footer.php                         # Rodapé comum
+│   ├── format.php                         # formatMoney(), formatDate(), parseAmount() e MAX_AMOUNT
+│   ├── header.php                         # Cabeçalho comum a todas as páginas; adapta os links se houver sessão
+│   ├── session.php                        # startSecureSession(): inicia a sessão com definições seguras
+│   ├── sidebar.php                        # Menu lateral do dashboard (Resumo, Movimentos, Categorias, Objetivos, Perfil)
+│   └── sections/                          # Secções carregadas dentro do dashboard (via ?section=)
+│       ├── categories.php                 # Categorias: formulário de criar/editar e listas de ativas e inativas
+│       ├── goals.php                      # Objetivos: saldos, formulários (criar, editar, adquirir), cards e adquiridos
+│       ├── movements.php                  # Movimentos: formulário de registo/edição, filtros, lista e paginação
+│       └── profile.php                    # Perfil: edição de nome, email, fotografia e password
+│       ├── summary.php                    # Resumo: saldos, receitas e despesas do mês, gráfico, objetivos e últimos movimentos
+│
+└── public/                                # Raiz pública da aplicação
+    ├── dashboard.php                      # Área privada: valida ?section= e inclui a secção pedida
+    ├── index.php                          # Homepage: hero, benefícios e CTA
+    ├── login.php                          # Página de autenticação
+    ├── logout.php                         # Terminar sessão
+    ├── register.php                       # Página de criação de conta
+    ├── terms.php                          # Termos
+    │
+    ├── actions/                           # Scripts que processam os formulários (só aceitam POST)
+    │   ├── category_create.php            # Cria uma categoria do utilizador
+    │   ├── category_delete.php            # Elimina a categoria se não tiver movimentos; senão, desativa-a
+    │   ├── category_reactivate.php        # Reativa uma categoria inativa
+    │   ├── category_update.php            # Altera o nome e o ícone de uma categoria
+    │   ├── goal_acquire.php               # Adquire um objetivo: cria a despesa ligada a ele
+    │   ├── goal_acquired_update.php       # Edita o nome e os dados da despesa de um objetivo adquirido
+    │   ├── goal_contribute.php            # Adiciona ou retira poupança (contribuição positiva ou negativa)
+    │   ├── goal_create.php                # Cria um objetivo com nome e meta
+    │   └── goal_delete.php                # Elimina um objetivo ativo (estado `deleted`), libertando o valor reservado
+    │   ├── goal_reopen.php                # Volta a ativar um objetivo adquirido e apaga a despesa associada
+    │   ├── goal_update.php                # Altera o nome e a meta de um objetivo ativo
+    │   ├── login_process.php              # Valida as credenciais e inicia a sessão
+    │   ├── movement_create.php            # Regista uma receita ou despesa
+    │   ├── movement_delete.php            # Elimina um movimento (exceto os criados por objetivos)
+    │   ├── movement_update.php            # Edita um movimento (exceto os criados por objetivos)
+    │   ├── profile_update.php             # Atualiza nome, email, fotografia e password
+    │   ├── register_process.php           # Valida os dados, guarda a fotografia e cria a conta
+    │
+    └── assets/                            # Ficheiros estáticos carregados pelo browser
+        ├── css/
+        │   ├── base.css                   # Variáveis (cores, fonte, medidas), reset e tipografia
+        │   ├── layout.css                 # Estrutura comum: header, footer e .page-section
+        │   ├── components.css             # Componentes reutilizáveis
+        │   └── pages/                     # Um ficheiro por página ou secção
+        │       ├── auth.css               # Estilos partilhados por registo e login
+        │       ├── categories.css         # Secção Categorias
+        │       ├── dashboard.css          # Estrutura do dashboard: sidebar, área de conteúdo e rodapé
+        │       ├── goals.css              # Secção Objetivos
+        │       ├── home.css               # Homepage (hero, benefícios, CTA)
+        │       ├── legal.css              # Estilo página de termos
+        │       ├── movements.css          # Secção Movimentos
+        │       └── profile.css            # Secção Perfil
+        │       ├── summary.css            # Secção Resumo
+        ├── js/
+        │   ├── main.js                    # Comportamento comum
+        │   ├── summary-chart.js           # Gráfico de receitas vs. despesas do Resumo (Chart.js)
+        ├── img/                           # Imagens do site
+        └── uploads/
+            └── profiles/                  # Fotografias de perfil enviadas pelos utilizadores (nomes aleatórios)
 ```
 
 ---
@@ -330,7 +350,7 @@ O dashboard constitui a área principal da aplicação após o login e foi pensa
 A aplicação utiliza uma base de dados MySQL composta pelas tabelas `users`, `categories`, `movements`, `goals` e `contributions`.
 
 - **users:** regista os utilizadores e os respetivos dados de autenticação.
-- **categories:** armazena as categorias predefinidas do sistema e as categorias criadas pelos utilizadores.
+- **categories:** armazena as categorias criadas pelos utilizadores.
 - **movements:** regista as receitas e despesas dos utilizadores, associando cada movimento a uma categoria.
 - **goals:** regista os objetivos financeiros definidos pelos utilizadores.
 - **contributions:** regista os valores reservados para cada objetivo, mantendo o histórico das contribuições.
@@ -352,7 +372,7 @@ A aplicação utiliza uma base de dados MySQL composta pelas tabelas `users`, `c
 - name VARCHAR(100) NOT NULL,
 - icon VARCHAR(100),
 - status ENUM('active', 'inactive') NOT NULL DEFAULT 'active',
-- user_id INT,
+- user_id INT NOT NULL,
 - FOREIGN KEY (user_id) REFERENCES users(id_users)
 
 **Tabela movements**
@@ -366,6 +386,7 @@ A aplicação utiliza uma base de dados MySQL composta pelas tabelas `users`, `c
 - category_id INT NOT NULL,
 - FOREIGN KEY (user_id) REFERENCES users(id_users),
 - FOREIGN KEY (category_id) REFERENCES categories(id_categories)
+- FOREIGN KEY (goal_id) REFERENCES goals(id_goals)
 
 **Tabela goals**
 
@@ -391,12 +412,11 @@ A aplicação utiliza uma base de dados MySQL composta pelas tabelas `users`, `c
 - Uma categoria pode estar associada a vários movimentos (`1:N`).
 - Um utilizador pode ter vários objetivos (`1:N`).
 - Um objetivo pode ter várias contribuições (`1:N`).
+- Um objetivo adquirido tem uma despesa associada em movements, através de goal_id (1:1, opcional).
 
 ### Categorias
 
-As categorias podem ser predefinidas pelo sistema ou criadas pelo utilizador.
-
-As categorias predefinidas não estão associadas a um utilizador específico, enquanto as categorias criadas pelo utilizador ficam associadas ao respetivo utilizador.
+Cada categoria é criada pelo utilizador e fica associada à sua conta. Não existem categorias predefinidas pelo sistema, por isso categories.user_id é obrigatório.
 
 ### Objetivos e contribuições
 
@@ -410,21 +430,34 @@ As contribuições pertencem a um objetivo e mantêm o seu próprio histórico. 
 
 ---
 
+### Saldos
+
+- saldo total = receitas − despesas
+- saldo disponível = saldo total − valor reservado nos objetivos ativos
+- O valor reservado de um objetivo é a soma das suas contribuições.
+- Só contam como reservadas as contribuições de objetivos ativos. Quando um objetivo é adquirido ou eliminado, o dinheiro deixa de contar como reservado e volta ao saldo disponível, sem ser necessário registar mais nada.
+
 ### Categorias
 
-As categorias podem ser predefinidas pelo sistema ou criadas pelo utilizador.
+Cada categoria é criada e gerida pelo próprio utilizador.
 
-- Categorias predefinidas pelo sistema não podem ser eliminadas pelo utilizador.
-- Categorias próprias sem movimentos associados podem ser eliminadas.
-- Categorias próprias com movimentos associados não são eliminadas, podem apenas ser desativadas.
-- Categorias inativas não ficam disponíveis para novos movimentos.
+- O nome da categoria não se repete dentro da mesma conta
+- Cada categoria tem um ícone (emoji) escolhido de uma lista; se o utilizador não escolher, assume um por defeito.
+- Categorias sem movimentos associados podem ser eliminadas.
+- Categorias com movimentos associados não são eliminadas, podem apenas ser desativadas.
+- Categorias inativas não ficam disponíveis para novos movimentos, mas continuam visíveis nos movimentos já registados e nos filtros.
 - Categorias inativas podem ser reativadas.
+- Um utilizador novo tem de criar pelo menos uma categoria antes de registar movimentos.
 
 ### Movimentos
 
 - Os movimentos representam o dinheiro efetivamente recebido ou gasto pelo utilizador.
 - Cada movimento corresponde a uma receita (`income`) ou despesa (`expense`).
 - Cada movimento está associado a uma categoria.
+- O valor é sempre positivo (o tipo do movimento determina o sinal) e não pode exceder o limite da base de dados (99 999 999,99 €).
+- A data não pode ser futura.
+- A descrição é opcional (até 100 caracteres); se estiver vazia, é apresentado o nome da categoria.
+- Os movimentos podem ser editados e eliminados, exceto os criados ao adquirir um objetivo, que se alteram a partir do próprio objetivo.
 
 ### Objetivos e contribuições
 
@@ -432,6 +465,7 @@ As categorias podem ser predefinidas pelo sistema ou criadas pelo utilizador.
 - Um objetivo pode ter várias `contributions`.
 - `contributions` representam dinheiro reservado para um objetivo e mantêm um histórico próprio.
 - As contribuições não criam movimentos financeiros.
+- Adicionar poupança regista uma contribuição positiva e retirar poupança regista uma contribuição negativa.
 
 ### Gestão dos objetivos
 
@@ -439,7 +473,8 @@ Enquanto um objetivo estiver ativo:
 
 - O utilizador pode alterar a meta.
 - A meta não pode ser reduzida para um valor inferior ao valor atualmente reservado.
-- O utilizador pode adicionar ou remover poupança através de novos registos em `contributions`.
+- O utilizador pode adicionar poupança, até ao valor que falta para a meta e até ao saldo disponível.
+- O utilizador pode retirar poupança, até ao valor atualmente reservado.
 
 ### Aquisição de um objetivo
 
@@ -450,13 +485,20 @@ Ao definir um objetivo como adquirido:
 - O utilizador pode selecionar uma categoria existente ou criar uma nova.
 - A descrição do movimento assume, por defeito, o nome do objetivo.
 - O sistema cria um movimento do tipo `expense`.
-- Qualquer diferença entre o valor reservado e o valor efetivamente gasto regressa ao saldo disponível.
 - O objetivo passa para o estado `acquired`.
+- Qualquer diferença entre o valor reservado e o valor efetivamente gasto regressa ao saldo disponível. Se o utilizador gastou mais do que reservou, o excesso sai do saldo.
 
-### Eliminação de um objetivo
+### Objetivos adquiridos:
 
+- Um objetivo adquirido pode ser editado
+- Um objetivo adquirido pode voltar a ativo: a despesa associada é apagada e as contribuições voltam a contar como valor reservado. Só é permitido se existir saldo disponível suficiente para voltar a reservar esse valor.
+- Um objetivo adquirido não é eliminado diretamente. Para o eliminar, o utilizador volta primeiro a ativá-lo.
+
+### Eliminação de um objetivo:
+
+- Só se eliminam objetivos ativos.
 - Ao eliminar um objetivo, o valor atualmente reservado regressa ao saldo disponível.
-- O objetivo passa para o estado `deleted`.
+- O objetivo passa para o estado deleted (o registo é mantido na base de dados).
 
 ---
 
@@ -466,57 +508,52 @@ Ao definir um objetivo como adquirido:
 
 As tecnologias foram escolhidas de acordo com a função que desempenham na aplicação, procurando separar a estrutura, apresentação, interatividade, lógica e armazenamento de dados.
 
-| Tecnologia       | Responsabilidade                                                                             |
-| ---------------- | -------------------------------------------------------------------------------------------- |
-| **HTML**         | Estrutura e semântica das páginas                                                            |
-| **CSS**          | Identidade visual, estilos próprios e personalizações                                        |
-| **Bootstrap**    | Grid, responsividade, componentes e utilitários                                              |
-| **JavaScript**   | Interatividade no browser, validações e atualizações dinâmicas                               |
-| **PHP**          | Lógica da aplicação, autenticação, sessões, operações CRUD e comunicação com a base de dados |
-| **MySQL**        | Armazenamento e relacionamento dos dados                                                     |
-| **Font Awesome** | Iconografia                                                                                  |
+| Tecnologia       | Responsabilidade                                                                                   |
+| ---------------- | -------------------------------------------------------------------------------------------------- |
+| **HTML**         | Estrutura e semântica das páginas                                                                  |
+| **CSS**          | Identidade visual, layout e componentes próprios, sem frameworks e com abordagem mobile first      |
+| **JavaScript**   | Interatividade no browser: menu mobile, confirmação de ações e gráfico do Resumo                   |
+| **PHP**          | Lógica da aplicação, autenticação, sessões, operações CRUD e comunicação com a base de dados (PDO) |
+| **MySQL**        | Armazenamento e relacionamento dos dados                                                           |
+| **Font Awesome** | Iconografia                                                                                        |
+| **Chart.js**     | Gráfico de receitas e despesas do Resumo (carregado por CDN, apenas nessa secção)                  |
+| **Emojis**       | Iconografia das categorias, escolhida a partir de uma lista fixa (sem bibliotecas de ícones)       |
+
+---
 
 ### Organização da interface
 
-A interface será desenvolvida combinando Bootstrap com CSS próprio.
+A interface desenvolvida com CSS próprio, dividido por ficheiros que inclui:
 
-O Bootstrap será utilizado principalmente para:
-
-- Estrutura de layout;
-- Grid;
-- Responsividade;
+- Estrutura de layout com Grid e Flexbox;
+- Responsividade, com abordagem mobile first e pontos de rutura em 768px e 1024px;
 - Cards;
-- Tabelas;
 - Formulários;
 - Botões;
-- Componentes de navegação.
-
-O CSS próprio será utilizado para:
-
-- Cores e identidade visual;
+- Componentes de navegação (menus);
+- Barras de progresso;
+- Cores e identidade visual, definidas através de variáveis CSS;
 - Tipografia;
-- Espaçamentos específicos;
-- Componentes e ajustes personalizados.
+- Espaçamentos e ajustes específicos de cada página.
 
 ### Interatividade
 
-O JavaScript será utilizado quando existir necessidade de interação no lado do cliente, como:
+O JavaScript utilizado quando existir necessidade de interação no lado do cliente, como:
 
-- Validação imediata de formulários;
-- Filtros;
-- Confirmações de ações;
-- Atualização dinâmica de informação;
-- Gráficos;
-- Pequenas interações da interface.
+- Menu de navegação no mobile;
+- Confirmação antes de ações irreversíveis (por exemplo, eliminar);
+- Gráfico de receitas e despesas dos últimos 6 meses.
 
 ### Lógica da aplicação
 
-O PHP será responsável pela lógica da aplicação, incluindo:
+O PHP responsável pela lógica da aplicação, incluindo:
 
 - Autenticação e sessões;
 - Validação dos dados;
 - Operações CRUD;
-- Comunicação com a base de dados;
+- Cálculo dos saldos (total, reservado e disponível);
+- Comunicação com a base de dados através de PDO;
+- Transações nas operações que alteram várias tabelas (por exemplo, adquirir um objetivo);
 - Processamento dos dados antes da apresentação.
 
 ---
@@ -525,22 +562,25 @@ O PHP será responsável pela lógica da aplicação, incluindo:
 
 ---
 
-A segurança será considerada desde o início do desenvolvimento, principalmente nas áreas de autenticação, validação dos dados e proteção das informações dos utilizadores.
+A segurança foi considerada desde o início do desenvolvimento, principalmente nas áreas de autenticação, validação dos dados e proteção das informações dos utilizadores.
 
 ### Validação e proteção de dados
 
 - Validar os dados recebidos pelo servidor;
 - Utilizar prepared statements nas consultas à base de dados para evitar SQL Injection;
-- Proteger os dados apresentados na página contra XSS.
+- Proteger os dados apresentados na página contra XSS;
+- O upload de fotografias verifica o tipo real do ficheiro, limita o tamanho a 2 MB e guarda o ficheiro com um nome aleatório;
+- As operações que alteram várias tabelas usam transações, para gravar tudo ou nada.
 
 ### Autenticação
 
 - Utilizar sessões para controlar o acesso à área privada;
 - Garantir que apenas utilizadores autenticados conseguem aceder aos seus dados;
-- As passwords não serão armazenadas em texto simples.
+- As passwords são guardadas com password_hash e verificadas com password_verify, nunca em texto simples;
+- As ações da área privada só aceitam pedidos POST de utilizadores autenticados.
 
 ### Acesso aos dados
 
-Cada utilizador deverá apenas conseguir consultar e alterar os seus próprios movimentos, categorias, objetivos e contribuições.
+Cada utilizador só consegue consultar e alterar os seus próprios movimentos, categorias, objetivos e contribuições. Todas as consultas e alterações incluem o utilizador da sessão, e esta verificação é feita no servidor, mesmo que o pedido seja forjado.
 
 ---
